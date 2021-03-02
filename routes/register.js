@@ -6,7 +6,7 @@ const Artist = require('../model/Artist');
 const bcrypt = require('bcrypt');
 
 
-//get route for USER - Register
+//get route for USER - register
 router.get('/', async(request, response) => {
 
     response.send('Register page for User');
@@ -14,12 +14,13 @@ router.get('/', async(request, response) => {
 });
 
 
-//get route for ARTIST - Register
+//get route for ARTIST - register
 router.get('/artist', async(request, response) => {
 
     response.send('Register page for Artist');
 
 });
+
 
 
 //post route for USER
@@ -139,5 +140,8 @@ router.post('/artist', async(request, response) => {
 
 
 });
+
+
+
 
 module.exports = router;
