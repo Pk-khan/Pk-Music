@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-6">
                     <form id="registerUser">
-                        <h1>Register User</h1>
+                        <h1>Register yourself</h1>
                         <div class="mb-3">
                             <label for="Name" class="form-label">Enter Name</label>
                             <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" required>
@@ -30,7 +30,9 @@
                             <div id="passwordError" class="font-weight-bold text-warning"></div>
                         </div>
 
-                        <button class="btn btn-primary">Register</button>
+                        <button class="btn btn-warning" onclick="artist()">Register as Artist</button>
+                        <button class="btn btn-primary" onclick="user()">Register as User</button>
+
                     </form>
 
                     <div><br/> Have Account? Go to <a href="login">Login</a>
@@ -45,6 +47,16 @@
 
 
     <script>
+        var isUser = true;
+
+        function user() {
+            isUser = true;
+        }
+
+        function artist() {
+            isUser = false;
+        }
+
         const form = document.getElementById("registerUser");
         form.addEventListener("submit", async(event) => {
             event.preventDefault();
@@ -64,10 +76,16 @@
                     body: JSON.stringify({
                         name,
                         email,
-                        password
+                        password,
+
                     })
                 }
-                var res = await fetch("/register", options);
+                var res;
+                if (isUser)
+                    res = await fetch("/register", options);
+                else
+                    res = await fetch("/register/artist", options);
+
                 var result = await res.json();
                 if (result.errors) {
                     console.log(result.errors);

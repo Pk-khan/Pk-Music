@@ -35,10 +35,6 @@ const registerArtist = Joi.object({
         .max(1024)
         .required(),
 
-    mobile: Joi.number()
-        .integer()
-        .required()
-
 
 });
 

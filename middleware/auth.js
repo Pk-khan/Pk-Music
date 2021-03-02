@@ -59,22 +59,30 @@ async function getCurrentArtist(request) {
 async function checkUser(request, response, next) {
 
     const token = request.cookies.token;
+    response.locals.user = null;
+    response.locals.artist = null;
 
     if (token) {
-
         try {
             const decode = jwt.verify(token, process.env.jwtKey);
             let user = await User.findById(decode);
+            if (!user) {
+                let artist = await Artist.findById(decode);
+                if (artist) {
+                    response.locals.artist = artist;
+                    next();
+                }
+            }
             response.locals.user = user;
             next();
 
         } catch (ex) {
-            response.locals.user = null;
+            ///response.locals.user = null;
             next();
         }
 
     } else {
-        response.locals.user = null;
+        //response.locals.user = null;
         next();
     }
 

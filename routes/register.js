@@ -108,12 +108,6 @@ router.post('/artist', async(request, response) => {
                     "password": result.error.message
                 }
             });
-        } else if (result.error.message.includes("mobile")) {
-            response.send({
-                "errors": {
-                    "mobile": result.error.message
-                }
-            });
         }
 
         return;
@@ -123,11 +117,6 @@ router.post('/artist', async(request, response) => {
     const isArtistEmailExist = await Artist.findOne({ email: request.body.email });
 
     if (isUserEmailExist || isArtistEmailExist) return response.send({ 'errors': { 'email': "email in use already" } });
-
-    const isMobileExist = await Artist.findOne({ mobile: request.body.mobile });
-
-    if (isMobileExist) return response.send({ 'errors': { 'mobile': "mobile in use already" } });
-
 
     let artist = new Artist(request.body);
 

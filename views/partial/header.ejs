@@ -55,24 +55,30 @@
 
 
 
-                <% if(user) { %>
+                <% if(artist) { %>
                     <form class="d-flex">
                         <li class="nav-item dropdown">
                             <a class='nav-link dropdown-toggle dropdownClass' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false' style="color:white">
-                                <% if(user.imageUrl) { %>
+                                <% if(artist.imageUrl) { %>
                                     <img id="myImage" class="rounded-circle border-3 borderT" src="<%= user.imageUrl %>" width="50px" height="50px">
                                     <% } %>
-                                        <%= user.name %>
+                                        <%= artist.name %>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
                                     <a class="dropdown-item" href="/me">Go to Profile</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/createQuestion"> My music</a>
+                                    <a class="dropdown-item" href="/#"> Upload New Songs</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/createQuestion"> My History</a>
+                                    <a class="dropdown-item" href="/#"> My Albums</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/#"> My Playlists</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="/#"> My History</a>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
@@ -81,19 +87,49 @@
                             </ul>
                         </li>
                     </form>
-                    <% } else { %>
+
+
+                    <% } else if(user) { %>
+
                         <form class="d-flex">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link active fs-5" aria-current="page" href="/login">
-                                        <i class="fas fa-user"></i> Login &nbsp;&nbsp;</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active fs-5" aria-current="page" href="/register"><i class="fas fa-user-plus">&nbsp;SignUp</i></a>
-                                </li>
-                            </ul>
+                            <li class="nav-item dropdown">
+                                <a class='nav-link dropdown-toggle dropdownClass' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false' style="color:white">
+                                    <% if(user.imageUrl) { %>
+                                        <img id="myImage" class="rounded-circle border-3 borderT" src="<%= user.imageUrl %>" width="50px" height="50px">
+                                        <% } %>
+                                            <%= user.name %>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="/me">Go to Profile</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/#"> My Playlists</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/#"> My History</a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt">&nbsp;&nbsp;Logout</i></a></li>
+                                </ul>
+                            </li>
                         </form>
-                        <% } %>
+
+                        <% } else { %>
+                            <form class="d-flex">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link active fs-5" aria-current="page" href="/login">
+                                            <i class="fas fa-user"></i> Login &nbsp;&nbsp;</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active fs-5" aria-current="page" href="/register"><i class="fas fa-user-plus">&nbsp;SignUp</i></a>
+                                    </li>
+                                </ul>
+                            </form>
+                            <% } %>
 
             </div>
         </div>
