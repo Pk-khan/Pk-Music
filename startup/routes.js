@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const express = require('express');
 const register = require('../routes/register');
 const login = require('../routes/login');
+const home = require('../routes/home');
 
 
 module.exports = function(app) {
@@ -17,5 +18,6 @@ module.exports = function(app) {
 
     app.use('/register', register);
     app.use('/login', login);
+    app.use('/', home);
 
 }
