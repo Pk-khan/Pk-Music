@@ -9,7 +9,8 @@ const bcrypt = require('bcrypt');
 //get route for USER - register
 router.get('/', async(request, response) => {
 
-    response.send('Register page for User');
+    response.render('../views/register.ejs', { msg: '' });
+
 
 });
 
@@ -33,7 +34,7 @@ router.post('/', async(request, response) => {
         if (result.error.message.includes("name")) {
             response.send({
                 "errors": {
-                    "handle": result.error.message
+                    "name": result.error.message
                 }
             });
         } else if (result.error.message.includes("email")) {
@@ -60,6 +61,8 @@ router.post('/', async(request, response) => {
     const isArtistEmailExist = await Artist.findOne({ email: request.body.email });
 
     if (isUserEmailExist || isArtistEmailExist) return response.send({ 'errors': { 'email': "email in use already" } });
+
+
 
     let user = new User(request.body);
 

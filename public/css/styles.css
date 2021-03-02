@@ -1,0 +1,18 @@
+.noUnderline {
+    text-decoration: none;
+}
+
+.noUnderline:hover {
+    text-decoration: none;
+}
+
+footer {
+    text-align: center;
+    color: white;
+    background-color: #292b2c;
+}
+
+.dropdownClass {
+    font-size: 30px;
+    color: whitesmoke;
+}

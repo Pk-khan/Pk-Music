@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Song = require('../model/Song');
 const Playlist = require('../model/Playlist');
-const authUser = require('../middleware/auth').authUser;
+const auth = require('../middleware/auth').auth;
 const getCurrentUser = require('../middleware/auth').getCurrentUser;
 
 
 // To get all playlist of currently logged in user
-router.get('/all', authUser, async(request, response) => {
+router.get('/all', auth, async(request, response) => {
 
     let allPlaylist;
 
@@ -27,7 +27,7 @@ router.get('/all', authUser, async(request, response) => {
 
 
 // To get particular playlist
-router.get('/:id', authUser, async(request, response) => {
+router.get('/:id', auth, async(request, response) => {
 
     let playlist;
     try {
@@ -48,7 +48,7 @@ router.get('/:id', authUser, async(request, response) => {
 
 
 // To Create a New Playlist
-router.post('/createNewPlaylist', authUser, async(request, response) => {
+router.post('/createNewPlaylist', auth, async(request, response) => {
 
     let user = await getCurrentUser(request);
     if (!user)
@@ -76,7 +76,7 @@ router.post('/createNewPlaylist', authUser, async(request, response) => {
 
 
 // To add Song into the particular playlist
-router.post('/addSongIntoPlaylist', authUser, async(request, response) => {
+router.post('/addSongIntoPlaylist', auth, async(request, response) => {
 
     let user = await getCurrentUser(request);
     if (!user)

@@ -18,6 +18,11 @@ const artistSchema = new mongoose.Schema({
     mobile: {
         type: Number,
         require: true
+    },
+    imageUri: {
+        type: String,
+        default: ''
+
     }
 
 });

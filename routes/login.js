@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 //get route for USER - login
 router.get('/', async(request, response) => {
 
-    response.send('Login page for User');
+    response.render('../views/login.ejs', { msg: '' });
 
 });
 

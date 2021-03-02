@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../model/User');
 const Artist = require('../model/Artist');
 
-function authUser(request, response, next) {
+function auth(request, response, next) {
 
     const token = request.cookies.token;
 
@@ -56,7 +56,32 @@ async function getCurrentArtist(request) {
 }
 
 
+async function checkUser(request, response, next) {
 
-module.exports.authUser = authUser;
+    const token = request.cookies.token;
+
+    if (token) {
+
+        try {
+            const decode = jwt.verify(token, process.env.jwtKey);
+            let user = await User.findById(decode);
+            response.locals.user = user;
+            next();
+
+        } catch (ex) {
+            response.locals.user = null;
+            next();
+        }
+
+    } else {
+        response.locals.user = null;
+        next();
+    }
+
+}
+
+
+module.exports.checkUser = checkUser;
+module.exports.auth = auth;
 module.exports.getCurrentUser = getCurrentUser;
 module.exports.getCurrentArtist = getCurrentArtist;

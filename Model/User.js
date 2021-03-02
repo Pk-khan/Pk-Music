@@ -15,6 +15,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
+    imageUri: {
+        type: String,
+        default: ''
+
+    }
 });
 
 userSchema.methods.generateAuthToken = function() {

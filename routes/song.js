@@ -4,11 +4,11 @@ const Artist = require('../model/Artist');
 const Song = require('../model/Song');
 const Album = require('../model/Album');
 const jwt = require('jsonwebtoken');
-const authUser = require('../middleware/auth').authUser;
+const auth = require('../middleware/auth').auth;
 const getCurrentArtist = require('../middleware/auth').getCurrentArtist;
 
 
-router.get('/:id', authUser, async(request, response) => {
+router.get('/:id', auth, async(request, response) => {
 
     let song;
     try {
@@ -30,7 +30,7 @@ router.get('/:id', authUser, async(request, response) => {
 
 
 //This route is only accessible for Artist
-router.post('/upload', authUser, async(request, response) => {
+router.post('/upload', auth, async(request, response) => {
 
     const name = request.body.name;
 
