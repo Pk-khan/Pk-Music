@@ -20,6 +20,7 @@ const songSchema = new mongoose.Schema({
     },
     album: {
         type: String,
+        required: true
     },
     plays: {
         type: Number,
