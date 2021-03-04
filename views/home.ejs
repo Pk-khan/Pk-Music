@@ -1,38 +1,63 @@
 <%- include('./partial/header.ejs'); %>
 
 
+
     <div class="container">
 
         <div class="row">
             <div class="col-sm-3">
-
             </div>
             <div class="col-sm-9">
-                <p class="display-5">Recent Songs</p>
 
-                <% for( var i = 0; i< data.recentSongs.length; i++ )  { %>
+                <p class="display-6">Songs</p>
+                <div class="row">
+                    <% for( var i = 0; i< data.recentSongs.length; i++ )  { %>
+                        <div class="col-sm-3">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= data.recentSongs[i].name %>
+                                </h5>
+                                <p class="card-text">
+                                    <%= data.recentSongs[i].artist.name %>
+                                </p>
+                                <button onclick="fetchSong( '<%= data.recentSongs[i]._id %>' )" class="btn btn-primary"><span class="material-icons">
+                                    play_arrow
+                                    </span>
+                        </button>
 
-                    <div class="card" style="width: 18rem;">
-                        <!-- <img src="..." class="card-img-top" alt="..."> -->
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <%= data.recentSongs[i].name %>
-                            </h5>
-                            <p class="card-text">
-                                <%= data.recentSongs[i].artist %>
-                            </p>
-                            <audio controls="controls" src=<%=data.recentSongs[i].url%> >
-
-                            </audio>
-
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
                         </div>
-                    </div>
-                    <% } %>
 
+
+                        <% } %>
+                </div>
             </div>
+            <br/>
+
+
+            <br/>
         </div>
+
+
     </div>
+    <audio class="fix" id="audio" controls="controls" type="audio/mpeg">
+    </audio>
+
+    <script>
+        async function fetchSong(id) {
+            var audio = document.getElementById("audio");
+            var options = {
+                method: 'GET',
+            }
+
+            var res = await fetch(`/song/${id}`, options);
+            res = await res.json();
+
+            audio.src = res.songFile;
+            audio.load();
+            audio.play();
+        }
+    </script>
 
 
     <%- include('./partial/footer.ejs'); %>

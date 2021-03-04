@@ -6,6 +6,7 @@ const Album = require('../model/Album');
 const jwt = require('jsonwebtoken');
 const auth = require('../middleware/auth').auth;
 const getCurrentArtist = require('../middleware/auth').getCurrentArtist;
+const SongMediaFile = require('../Model/SongMediaFile');
 
 
 router.get('/upload', auth, async(request, response) => {
@@ -28,6 +29,8 @@ router.get('/:id', auth, async(request, response) => {
 
     song.plays = await song.plays + 1; // To increase play count
     await song.save();
+
+    song = await SongMediaFile.findById(song.url);
 
     response.send(song);
 
@@ -70,9 +73,12 @@ router.post('/upload', auth, async(request, response) => {
 
     let album = request.body.album;
 
+    let songMediaFile = new SongMediaFile({ songFile: url });
+    let songMediaFileId = await songMediaFile.save();
+
     let song = {
         'name': name,
-        'url': url,
+        'url': songMediaFileId,
         'genre': genre,
         'artist': artist,
         'album': album
@@ -98,7 +104,7 @@ router.post('/upload', auth, async(request, response) => {
     await Album.updateOne({ '_id': album._id }, { $push: { songs: song._id } });
 
     response.send({
-        msg: 'hello'
+        msg: 'Song uploaded success'
     });
 
 });

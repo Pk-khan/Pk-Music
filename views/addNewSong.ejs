@@ -1,5 +1,13 @@
 <%- include('./partial/header.ejs'); %>
 
+    <div id="showLoader">
+
+    </div>
+
+    <div class="center">
+        <h1 id="resultMessage"></h1>
+    </div>
+
     <br/><br/>
 
     <div class="container">
@@ -44,6 +52,8 @@
 
 
     <script>
+        var showLoader = document.getElementById("showLoader");
+
         var img = document.getElementById("finput");
         var formData;
         img.addEventListener('change', async function(event) {
@@ -66,6 +76,12 @@
 
         form.addEventListener("submit", async(event) => {
             event.preventDefault();
+
+            var loader = document.createElement("div");
+            loader.setAttribute("class", "loader center");
+            showLoader.appendChild(loader);
+
+            var resultMessage = document.getElementById("resultMessage");
 
             var name = document.getElementById("name").value.trim();
             var genre = document.getElementById("genre").value.trim();
@@ -91,10 +107,14 @@
             try {
                 res = await fetch('/song/upload', options);
                 res = await res.json();
+                resultMessage.innerHTML = res.msg;
                 console.log(res);
             } catch (ex) {
                 console.log(ex);
+                resultMessage.innerHTML = ex;
             }
+
+            showLoader.removeChild(showLoader.lastChild);
 
 
         });

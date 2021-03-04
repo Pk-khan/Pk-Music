@@ -7,8 +7,9 @@ const songSchema = new mongoose.Schema({
         required: true
     },
     url: {
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'SongMediaFile',
+        required: true,
     },
     genre: {
         type: String,
