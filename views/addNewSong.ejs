@@ -1,0 +1,104 @@
+<%- include('./partial/header.ejs'); %>
+
+    <br/><br/>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-3">
+
+            </div>
+            <div class="col-sm-6">
+
+                <form id="uploadSong">
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label" class="fw-bold"><span class="material-icons">drive_file_rename_outline</span> Song Name</label>
+                        <input type="text" class="form-control" id="name" aria-describedby="emailHelp" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label"><span class="material-icons"> category</span> Genre</label>
+                        <input type="text" class="form-control" id="genre" aria-describedby="emailHelp" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label"> <span class="material-icons">album</span> Album Name</label>
+                        <input type="text" class="form-control" id="album" aria-describedby="emailHelp">
+                    </div>
+
+
+                    <span class="material-icons">
+                        audiotrack
+                        </span>Select .mp3 file<br/>
+
+                    <input type="file" multiple="false" accept=".mp3,audio/*" id="finput">
+
+                    <button class="btn btn-primary "> <span class="material-icons ">upload</span> Upload </button>
+                </form>
+
+            </div>
+            <div class="col-sm-3 ">
+
+            </div>
+        </div>
+    </div>
+    <br/><br/><br/><br/>
+
+
+    <script>
+        var img = document.getElementById("finput");
+        var formData;
+        img.addEventListener('change', async function(event) {
+            event.preventDefault();
+            var file = event.target.files[0];
+
+            formData = await toBase64(file);
+
+        });
+
+        const toBase64 = file => new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+
+
+        const form = document.getElementById('uploadSong');
+
+        form.addEventListener("submit", async(event) => {
+            event.preventDefault();
+
+            var name = document.getElementById("name").value.trim();
+            var genre = document.getElementById("genre").value.trim();
+            var album = document.getElementById("album").value.trim();
+
+            var data = {
+                name,
+                genre,
+                album,
+                'url': formData
+            }
+
+            options = {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */ *',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+
+            let res = '';
+            try {
+                res = await fetch('/song/upload', options);
+                res = await res.json();
+                console.log(res);
+            } catch (ex) {
+                console.log(ex);
+            }
+
+
+        });
+    </script>
+
+
+    <%- include('./partial/footer.ejs'); %>

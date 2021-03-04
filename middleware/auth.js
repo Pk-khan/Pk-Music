@@ -22,10 +22,10 @@ function auth(request, response, next) {
     }
 }
 
-async function getCurrentUser(request) {
+async function getCurrentUser(cookies) {
     let user;
     try {
-        const token = request.cookies.token;
+        const token = cookies.token;
         const decode = jwt.verify(token, process.env.jwtKey);
         user = await User.findById(decode);
         if (!user)
@@ -39,12 +39,12 @@ async function getCurrentUser(request) {
 }
 
 
-async function getCurrentArtist(request) {
+async function getCurrentArtist(cookies) {
     let artist;
     try {
-        const token = request.cookies.token;
+        const token = cookies.token;
         const decode = jwt.verify(token, process.env.jwtKey);
-        artist = await User.findById(decode);
+        artist = await Artist.findById(decode);
         if (!artist)
             return;
         artist = artist._id;
@@ -70,20 +70,20 @@ async function checkUser(request, response, next) {
                 let artist = await Artist.findById(decode);
                 if (artist) {
                     response.locals.artist = artist;
-                    next();
+                    return next();
                 }
             }
             response.locals.user = user;
-            next();
+            return next();
 
         } catch (ex) {
             ///response.locals.user = null;
-            next();
+            return next();
         }
 
     } else {
         //response.locals.user = null;
-        next();
+        return next();
     }
 
 }

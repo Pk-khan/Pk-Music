@@ -8,6 +8,13 @@ const auth = require('../middleware/auth').auth;
 const getCurrentArtist = require('../middleware/auth').getCurrentArtist;
 
 
+router.get('/upload', auth, async(request, response) => {
+
+    response.render("../views/addNewSong.ejs", {});
+
+});
+
+
 router.get('/:id', auth, async(request, response) => {
 
     let song;
@@ -28,7 +35,6 @@ router.get('/:id', auth, async(request, response) => {
 
 
 
-
 //This route is only accessible for Artist
 router.post('/upload', auth, async(request, response) => {
 
@@ -36,17 +42,31 @@ router.post('/upload', auth, async(request, response) => {
 
     let url;
     if (request.body.url)
-        url = request.body.url;
-    else
+        url = await request.body.url;
+    else {
         return response.status(404).send("Something went wrong");
+    }
 
     let genre;
     if (request.body.genre)
         genre = request.body.genre;
 
-    let artist = await getCurrentArtist(request);
-    if (!artist)
-        return response.status(404).send("Artist not found");
+    var artist;
+
+    try {
+        const token = request.cookies.token;
+        const decode = jwt.verify(token, process.env.jwtKey);
+        artist = await Artist.findById(decode);
+        if (!artist) {
+            return response.status(404).send("Artist not found");
+
+        }
+        artist = artist._id;
+    } catch (ex) {
+        console.log(ex);
+        return response.status(404).send(ex);
+
+    }
 
     let album = request.body.album;
 
@@ -77,8 +97,14 @@ router.post('/upload', auth, async(request, response) => {
     }
     await Album.updateOne({ '_id': album._id }, { $push: { songs: song._id } });
 
-    response.send("Song uploaded successfully");
+    response.send({
+        msg: 'hello'
+    });
 
 });
+
+
+
+
 
 module.exports = router;
