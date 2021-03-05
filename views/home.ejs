@@ -15,7 +15,7 @@
                     <% for( var i = 0; i< data.recentSongs.length; i++ )  { %>
 
                         <div class="col-sm-3 ">
-                            <div class="card-body ">
+                            <div class="card-body border">
                                 <h5 class="card-title ">
                                     <%= data.recentSongs[i].name %>
                                 </h5>
@@ -64,8 +64,12 @@
 
 
     </div>
+
     <audio class="fix " id="audio " controls="controls " type="audio/mpeg ">
     </audio>
+
+
+
 
     <script>
         $(document).ready(function() {
@@ -75,23 +79,6 @@
                 e.preventDefault();
             });
         });
-
-        async function fetchSong(id) {
-
-            var audio = document.getElementById("audio ");
-
-            var options = {
-                method: 'GET',
-            }
-
-            var res = await fetch(`/song/${id}`, options);
-            res = await res.json();
-
-            audio.src = res.songFile;
-            audio.load();
-            audio.play();
-        }
-
 
         async function addSongIntoPlaylist(playlistId, songId) {
 
@@ -124,6 +111,22 @@
             }
 
 
+        }
+
+        async function fetchSong(id) {
+
+            var audio = document.getElementById("audio ");
+
+            var options = {
+                method: 'GET',
+            }
+
+            var res = await fetch(`/song/${id}`, options);
+            res = await res.json();
+
+            audio.src = res.songFile;
+            audio.load();
+            audio.play();
         }
     </script>
 
