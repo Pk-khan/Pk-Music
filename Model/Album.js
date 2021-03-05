@@ -14,7 +14,7 @@ const albumSchema = new mongoose.Schema({
 
     artist: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Artist'
+        ref: 'User'
     },
 
     time: {

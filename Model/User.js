@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
     imageUri: {
         type: String,
         default: ''
+    },
+    isArtist: {
+        type: Boolean,
+        default: false
     }
 });
 

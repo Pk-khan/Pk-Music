@@ -2,7 +2,6 @@ const express = require('express');
 const validate = require('../inputValidate/validateNewUser');
 const router = express.Router();
 const User = require('../model/User');
-const Artist = require('../model/Artist');
 const bcrypt = require('bcrypt');
 
 router.get('/', async(request, response) => {
@@ -36,11 +35,6 @@ router.post('/', async function(request, response) {
     }
 
     var user = await User.findOne({ email: request.body.email });
-
-
-    if (!user) {
-        user = await Artist.findOne({ email: request.body.email });
-    }
 
     if (!user) {
         response.send({

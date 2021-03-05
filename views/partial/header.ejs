@@ -81,14 +81,14 @@
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
-                <% if(artist) { %>
+                <% if( user && user.isArtist) { %>
                     <form class="d-flex">
                         <li class="nav-item dropdown">
                             <a class='nav-link dropdown-toggle dropdownClass' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false' style="color:white">
-                                <% if(artist.imageUrl) { %>
+                                <% if(user.imageUrl) { %>
                                     <img id="myImage" class="rounded-circle border-3 borderT" src="<%= user.imageUrl %>" width="50px" height="50px">
                                     <% } %>
-                                        <%= artist.name %>
+                                        <%= user.name %>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
@@ -116,7 +116,7 @@
                     </form>
 
 
-                    <% } else if(user) { %>
+                    <% } else if(user && !user.isArtist) { %>
 
                         <form class="d-flex">
                             <li class="nav-item dropdown">

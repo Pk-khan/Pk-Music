@@ -4,7 +4,6 @@ const Song = require('../model/Song');
 const Playlist = require('../model/Playlist');
 const auth = require('../middleware/auth').auth;
 const getCurrentUser = require('../middleware/auth').getCurrentUser;
-const getCurrentArtist = require('../middleware/auth').getCurrentArtist;
 
 
 // To get all playlist of currently logged in user/artist
@@ -14,9 +13,7 @@ router.get('/', auth, async(request, response) => {
 
     let user = await getCurrentUser(request.cookies);
     if (!user) {
-        user = await getCurrentArtist(request.cookies);
-        if (!user)
-            return response.status(404).send("User not found");
+        return response.status(404).send("User not found");
     }
 
     try {
@@ -67,9 +64,8 @@ router.post('/createNewPlaylist', auth, async(request, response) => {
 
     let user = await getCurrentUser(request.cookies);
     if (!user) {
-        user = await getCurrentArtist(request.cookies);
-        if (!user)
-            return response.status(404).send("User not found");
+
+        return response.status(404).send("User not found");
     }
 
     user = user._id;
@@ -95,16 +91,13 @@ router.post('/createNewPlaylist', auth, async(request, response) => {
 });
 
 
-
-
 // To add Song into the particular playlist
 router.post('/addSongIntoPlaylist', auth, async(request, response) => {
 
     let user = await getCurrentUser(request.cookies);
     if (!user) {
-        user = await getCurrentArtist(request.cookies);
-        if (!user)
-            return response.status(404).send("User not found");
+
+        return response.status(404).send("User not found");
     }
 
 
@@ -142,8 +135,6 @@ router.post('/addSongIntoPlaylist', auth, async(request, response) => {
     await Playlist.updateOne({
         _id: playlistId
     }, { $push: { songs: songId } });
-
-
 
 
     response.send({

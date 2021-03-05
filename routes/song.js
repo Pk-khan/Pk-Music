@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Artist = require('../model/Artist');
 const Song = require('../model/Song');
+const User = require('../model/User');
 const Album = require('../model/Album');
 const jwt = require('jsonwebtoken');
 const auth = require('../middleware/auth').auth;
-const getCurrentArtist = require('../middleware/auth').getCurrentArtist;
 const SongMediaFile = require('../Model/SongMediaFile');
 
 
@@ -54,17 +53,17 @@ router.post('/upload', auth, async(request, response) => {
     if (request.body.genre)
         genre = request.body.genre;
 
-    var artist;
+    var user;
 
     try {
         const token = request.cookies.token;
         const decode = jwt.verify(token, process.env.jwtKey);
-        artist = await Artist.findById(decode);
-        if (!artist) {
+        user = await User.findById(decode);
+        if (!user) {
             return response.status(404).send("Artist not found");
 
         }
-        artist = artist._id;
+        user = user._id;
     } catch (ex) {
         console.log(ex);
         return response.status(404).send(ex);
@@ -77,11 +76,11 @@ router.post('/upload', auth, async(request, response) => {
     let songMediaFileId = await songMediaFile.save();
 
     let song = {
-        'name': name,
+        name,
         'url': songMediaFileId,
-        'genre': genre,
-        'artist': artist,
-        'album': album
+        genre,
+        'artist': user,
+        album
     };
 
     song = new Song(song);
@@ -90,13 +89,13 @@ router.post('/upload', auth, async(request, response) => {
     // To add this song in Album
     album = await Album.findOne({
         name: request.body.album,
-        artist: artist,
+        artist: user,
     });
 
     if (!album) {
         album = {
             'name': request.body.album,
-            'artist': artist,
+            'artist': user,
         };
         album = new Album(album)
         await album.save();

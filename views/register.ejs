@@ -47,19 +47,20 @@
 
 
     <script>
-        var isUser = true;
+        var isArtist = false;
 
         function user() {
-            isUser = true;
+            isArtist = false;
         }
 
         function artist() {
-            isUser = false;
+            isArtist = true;
         }
 
         const form = document.getElementById("registerUser");
         form.addEventListener("submit", async(event) => {
             event.preventDefault();
+            console.log("fdfdf");
             var name = form.name.value;
             var email = form.email.value;
             var password = form.password.value;
@@ -77,14 +78,11 @@
                         name,
                         email,
                         password,
-
+                        isArtist
                     })
                 }
-                var res;
-                if (isUser)
-                    res = await fetch("/register", options);
-                else
-                    res = await fetch("/register/artist", options);
+
+                var res = await fetch("/register", options);
 
                 var result = await res.json();
                 if (result.errors) {
