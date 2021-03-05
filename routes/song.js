@@ -22,10 +22,10 @@ router.get('/:id', auth, async(request, response) => {
     try {
         song = await Song.findById(request.params.id);
     } catch (ex) {
-        return response.status(400).send("Invalid Song");
+        return response.status(404).send("Invalid Song");
     }
     if (!song)
-        return response.send("Invalid song");
+        return response.status(404).send("Invalid song");
 
     song.plays = await song.plays + 1; // To increase play count
     await song.save();

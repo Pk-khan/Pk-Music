@@ -22,15 +22,35 @@
                                 <p class="card-text">
                                     <%= data.recentSongs[i].artist.name %>
                                 </p>
-                                <button onclick="fetchSong( '<%= data.recentSongs[i]._id %>' )" class="btn btn-primary"><span class="material-icons">
-                                    play_arrow
-                                    </span>
-                        </button>
+
+                                <button onclick="fetchSong( '<%= data.recentSongs[i]._id %>' )" class="btn btn-primary"><span style="vertical-align: bottom;" class="material-icons">
+                                    <div id = "playStatus" >play_arrow</div></span>
+                               </button>
+
+                                <div class="dropdown">
+                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-submenu">
+                                            <a class="test" tabindex="-1" href="#">Add to playlist <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a tabindex="-1" href="#">Add to New Playlist</a></li>
+                                                <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
+                                                <li class="dropdown-submenu">
+                                                    <a class="test" href="#">Another dropdown <span class="caret"></span></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a href="#">3rd level dropdown</a></li>
+                                                        <li><a href="#">3rd level dropdown</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
 
 
                             </div>
                         </div>
-
 
                         <% } %>
                 </div>
@@ -47,8 +67,18 @@
     </audio>
 
     <script>
+        $(document).ready(function() {
+            $('.dropdown-submenu a.test').on("click", function(e) {
+                $(this).next('ul').toggle();
+                e.stopPropagation();
+                e.preventDefault();
+            });
+        });
+
         async function fetchSong(id) {
+
             var audio = document.getElementById("audio");
+
             var options = {
                 method: 'GET',
             }
