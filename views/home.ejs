@@ -1,48 +1,49 @@
 <%- include('./partial/header.ejs'); %>
 
 
+    <p class="fs-3 center" id="resultMessage"></p>
 
+    <div class="container ">
 
-    <div class="container">
-
-        <div class="row">
-            <div class="col-sm-3">
+        <div class="row ">
+            <div class="col-sm-3 ">
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-9 ">
 
-                <p class="display-6">Songs</p>
-                <div class="row">
+                <p class="display-6 ">Songs</p>
+                <div class="row ">
                     <% for( var i = 0; i< data.recentSongs.length; i++ )  { %>
 
-                        <div class="col-sm-3">
-                            <div class="card-body">
-                                <h5 class="card-title">
+                        <div class="col-sm-3 ">
+                            <div class="card-body ">
+                                <h5 class="card-title ">
                                     <%= data.recentSongs[i].name %>
                                 </h5>
-                                <p class="card-text">
+                                <p class="card-text ">
                                     <%= data.recentSongs[i].artist.name %>
                                 </p>
 
-                                <button onclick="fetchSong( '<%= data.recentSongs[i]._id %>' )" class="btn btn-primary"><span style="vertical-align: bottom;" class="material-icons">
-                                    <div id = "playStatus" >play_arrow</div></span>
+                                <button onclick="fetchSong( '<%= data.recentSongs[i]._id %>' ) " class="btn btn-primary "><span style="vertical-align: bottom; " class="material-icons ">
+                                    <div id = "playStatus " >play_arrow</div></span>
                                </button>
 
-                                <div class="dropdown">
+                                <div class="dropdown ">
                                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                                <span class="caret"></span></button>
-                                    <ul class="dropdown-menu">
+                                <span class="caret "></span></button>
+                                    <ul class="dropdown-menu center">
                                         <li class="dropdown-submenu">
-                                            <a class="test" tabindex="-1" href="#">Add to playlist <span class="caret"></span></a>
-                                            <ul class="dropdown-menu">
-                                                <li><a tabindex="-1" href="#">Add to New Playlist</a></li>
-                                                <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-                                                <li class="dropdown-submenu">
-                                                    <a class="test" href="#">Another dropdown <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="#">3rd level dropdown</a></li>
-                                                        <li><a href="#">3rd level dropdown</a></li>
-                                                    </ul>
-                                                </li>
+                                            <a class="test noUnderline " tabindex="-1 " href="# ">Add to playlist <span class="caret "></span></a>
+                                            <ul class="dropdown-menu center ">
+
+                                                <% for( var j = 0; j< data.playlists.length; j++ )  { %>
+
+                                                    <li>
+                                                        <button style="background:none;border:none; color:rgb(34, 91, 165); " onclick="addSongIntoPlaylist( '<%= data.playlists[j]._id %>', '<%= data.recentSongs[i]._id %>') ">
+                                                            <%= data.playlists[j].name %>
+                                                        </button>
+                                                    </li>
+
+                                                    <% } %>
                                             </ul>
                                         </li>
                                     </ul>
@@ -63,12 +64,12 @@
 
 
     </div>
-    <audio class="fix" id="audio" controls="controls" type="audio/mpeg">
+    <audio class="fix " id="audio " controls="controls " type="audio/mpeg ">
     </audio>
 
     <script>
         $(document).ready(function() {
-            $('.dropdown-submenu a.test').on("click", function(e) {
+            $('.dropdown-submenu a.test').on("click ", function(e) {
                 $(this).next('ul').toggle();
                 e.stopPropagation();
                 e.preventDefault();
@@ -77,7 +78,7 @@
 
         async function fetchSong(id) {
 
-            var audio = document.getElementById("audio");
+            var audio = document.getElementById("audio ");
 
             var options = {
                 method: 'GET',
@@ -89,6 +90,40 @@
             audio.src = res.songFile;
             audio.load();
             audio.play();
+        }
+
+
+        async function addSongIntoPlaylist(playlistId, songId) {
+
+            var resultMessage = document.getElementById("resultMessage");
+            console.log(songId);
+
+            var data = {
+                songId,
+                playlistId
+            }
+
+            options = {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */ *',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+
+            let res = '';
+            try {
+                res = await fetch('/playlist/addSongIntoPlaylist', options);
+                res = await res.json();
+                resultMessage.innerHTML = res.msg;
+                console.log(res);
+            } catch (ex) {
+                console.log(ex);
+                resultMessage.innerHTML = ex;
+            }
+
+
         }
     </script>
 

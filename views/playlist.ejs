@@ -2,7 +2,7 @@
 
 
     <div class="center">
-        <p id="resultMessage" class="fs-1 text-secondary">Your playlists</p>
+        <p id="resultMessage" class="fs-1 text-secondary"></p>
     </div>
 
 
@@ -31,7 +31,7 @@
 
 
 
-    <br/><br/><br/>
+    <br/>
     <div class="container">
         <div class="row">
             <div class="col-sm-8 center">
@@ -59,7 +59,7 @@
                                     <%= i+1 %>
                                 </th>
                                 <td>
-                                    <a href="" class="noUnderline fs-4">
+                                    <a href='playlist/<%= data.allPlaylist[i]._id%>' class="noUnderline fs-4">
                                         <%= data.allPlaylist[i].name %>
                                     </a>
                                 </td>
@@ -69,10 +69,6 @@
 
                     </tbody>
                 </table>
-
-
-
-
 
 
             </div>
@@ -115,8 +111,6 @@
                 console.log(ex);
                 resultMessage.innerHTML = ex;
             }
-            location.assign('/playlist');
-
 
         }
     </script>

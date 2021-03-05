@@ -39,14 +39,21 @@ router.get('/:id', auth, async(request, response) => {
 
     let playlist;
     try {
-        playlist = await Playlist.findById(request.params.id);
+        playlist = await Playlist.findById(request.params.id).populate("songs").populate("user");
     } catch (ex) {
         return response.status(400).send("Invalid Playlist");
     }
     if (!playlist)
         return response.send("Invalid Playlist");
 
-    response.send(playlist);
+
+    console.log(playlist);
+
+    var data = {
+        playlist
+    };
+
+    response.render("../views/showPlaylist.ejs", { data });
 
 });
 
@@ -72,7 +79,9 @@ router.post('/createNewPlaylist', auth, async(request, response) => {
     const isPlaylistAlreadyExist = await Playlist.findOne({ 'name': playlistName, 'user': user });
 
     if (isPlaylistAlreadyExist)
-        return response.send("Playlist already exists");
+        return response.send({
+            msg: "Playlist already exists"
+        });
 
     let playlist = {
         'name': playlistName,
@@ -91,10 +100,15 @@ router.post('/createNewPlaylist', auth, async(request, response) => {
 // To add Song into the particular playlist
 router.post('/addSongIntoPlaylist', auth, async(request, response) => {
 
-    let user = await getCurrentUser(request);
-    if (!user)
-        return response.status(404).send("User not found");
+    let user = await getCurrentUser(request.cookies);
+    if (!user) {
+        user = await getCurrentArtist(request.cookies);
+        if (!user)
+            return response.status(404).send("User not found");
+    }
 
+
+    user = user._id;
 
     let songId = request.body.songId;
     let playlistId = request.body.playlistId;
@@ -102,8 +116,8 @@ router.post('/addSongIntoPlaylist', auth, async(request, response) => {
     try {
 
         playlist = await Playlist.findOne({
-            '_id': playlistId,
-            'user': user
+            _id: playlistId,
+            user: user
         });
         song = await Song.findById(songId);
 
@@ -112,16 +126,29 @@ router.post('/addSongIntoPlaylist', auth, async(request, response) => {
     }
 
     if (!playlist || !song)
-        return response.send("Something went wrong");
+        return response.send({
+            msg: "Something went wrong"
+        });
 
     let songs = playlist.songs;
 
     if (songs.includes(songId))
-        return response.send("Song already added");
+        return response.send({
+            msg: "Song already added"
+        });
 
-    await Playlist.updateOne({ '_id': playlistId }, { $push: { songs: songId } });
 
-    response.send(playlist);
+
+    await Playlist.updateOne({
+        _id: playlistId
+    }, { $push: { songs: songId } });
+
+
+
+
+    response.send({
+        msg: "Song added successfully"
+    });
 
 });
 

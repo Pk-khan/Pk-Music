@@ -4,8 +4,9 @@ const Song = require('../model/Song');
 const Playlist = require('../model/Playlist');
 const getCurrentArtist = require('../middleware/auth').getCurrentArtist;
 const getCurrentUser = require('../middleware/auth').getCurrentUser;
+const auth = require('../middleware/auth').auth;
 
-router.get('/', async(request, response) => {
+router.get('/', auth, async(request, response) => {
 
     var recentSongs = await Song.find().populate({
         path: "artist",
