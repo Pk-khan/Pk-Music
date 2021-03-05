@@ -17,7 +17,7 @@ router.get('/', auth, async(request, response) => {
     }
 
     try {
-        allPlaylist = await Playlist.find({ 'user': user });
+        allPlaylist = await Playlist.find({ 'user': user._id });
     } catch (ex) {
         return response.status(400).send("Invalid Playlists");
     }
@@ -43,9 +43,6 @@ router.get('/:id', auth, async(request, response) => {
     if (!playlist)
         return response.send("Invalid Playlist");
 
-
-    console.log(playlist);
-
     var data = {
         playlist
     };
@@ -57,22 +54,18 @@ router.get('/:id', auth, async(request, response) => {
 
 
 
-
-
 // To Create a New Playlist
 router.post('/createNewPlaylist', auth, async(request, response) => {
 
     let user = await getCurrentUser(request.cookies);
     if (!user) {
 
-        return response.status(404).send("User not found");
+        return response.status(401).send("User not found");
     }
-
-    user = user._id;
 
     let playlistName = request.body.name;
 
-    const isPlaylistAlreadyExist = await Playlist.findOne({ 'name': playlistName, 'user': user });
+    const isPlaylistAlreadyExist = await Playlist.findOne({ 'name': playlistName, 'user': user._id });
 
     if (isPlaylistAlreadyExist)
         return response.send({
@@ -96,12 +89,8 @@ router.post('/addSongIntoPlaylist', auth, async(request, response) => {
 
     let user = await getCurrentUser(request.cookies);
     if (!user) {
-
-        return response.status(404).send("User not found");
+        return response.status(401).send("User not found");
     }
-
-
-    user = user._id;
 
     let songId = request.body.songId;
     let playlistId = request.body.playlistId;
@@ -110,7 +99,7 @@ router.post('/addSongIntoPlaylist', auth, async(request, response) => {
 
         playlist = await Playlist.findOne({
             _id: playlistId,
-            user: user
+            user: user._id
         });
         song = await Song.findById(songId);
 

@@ -8,7 +8,7 @@ const home = require('../routes/home');
 const playlist = require('../routes/playlist');
 const logout = require('../routes/logout');
 const checkUser = require('../middleware/auth').checkUser
-
+const album = require('../routes/album');
 
 
 module.exports = function(app) {
@@ -34,5 +34,6 @@ module.exports = function(app) {
     app.use('/song', song);
     app.use('/playlist', playlist);
     app.use('/logout', logout);
+    app.use('/album', album);
 
 }

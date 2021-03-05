@@ -1,0 +1,81 @@
+<%- include('./partial/header.ejs'); %>
+
+
+    <p class="fs-1 text-secondary center">Your Albums</p>
+    <div class="center">
+        <p id="resultMessage" class="fs-1 text-secondary"></p>
+    </div>
+
+    <br/>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 center">
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Album Name</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <% for(var i = 0; i<data.album.length; i++)  {   %>
+
+                            <tr>
+                                <th scope="row">
+                                    <%= i+1 %>
+                                </th>
+                                <td>
+                                    <a href='album/<%= data.album[i]._id%>' class="noUnderline fs-4">
+                                        <%= data.album[i].name %>
+                                    </a>
+                                </td>
+                            </tr>
+                            <% } %>
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+
+    <br/><br/><br/>
+
+
+
+    <script>
+        async function createPlaylist() {
+
+            var data = {
+                name,
+            }
+
+            options = {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */ *',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }
+
+            let res = '';
+            try {
+                res = await fetch('/playlist/createNewPlaylist', options);
+                res = await res.json();
+                resultMessage.innerHTML = res.msg;
+                console.log(res);
+            } catch (ex) {
+                console.log(ex);
+                resultMessage.innerHTML = ex;
+            }
+
+        }
+    </script>
+
+
+    <%- include('./partial/footer.ejs'); %>

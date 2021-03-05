@@ -61,25 +61,7 @@
                     <li class="nav-item">
                         <a class="navbar-brand" href="/"><i class="fas fa-home"></i> Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
+
                 </ul>
                 <% if( user && user.isArtist) { %>
                     <form class="d-flex">
@@ -92,24 +74,36 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
-                                    <a class="dropdown-item" href="/me"><i class="fas fa-user-alt">&nbsp;&nbsp; Go to Profile</i></a>
+                                    <a class="dropdown-item" href="/me"> <span class="material-icons verticalSpanIcon">
+                                        account_circle
+                                        </span> Go to Profile </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/song/upload/"> <i class="fas fa-plus">&nbsp;&nbsp; Add New Songs</i></a>
+                                    <a class="dropdown-item" href="/song/upload/"> <span class="material-icons verticalSpanIcon">
+                                        file_upload
+                                        </span> Upload New Songs </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/#"> <i class="fas fa-record-vinyl">&nbsp;&nbsp; My Albums</i></a>
+                                    <a class="dropdown-item" href="/album"><span class="material-icons verticalSpanIcon">
+                                        album
+                                        </span>  My Albums </a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/playlist"><i class="fas fa-music">&nbsp;&nbsp; My Playlists</a></i>
+                                    <a class="dropdown-item" href="/playlist"><span class="material-icons verticalSpanIcon">
+                                        playlist_play
+                                        </span> My Playlists</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/#"><i class="fas fa-history">&nbsp;&nbsp; My History</i></a>
+                                    <a class="dropdown-item" href="/#"><span class="material-icons verticalSpanIcon">
+                                        history
+                                        </span> My History </a>
                                 </li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt">&nbsp;&nbsp;Logout</i></a>
+                                <li><a class="dropdown-item" href="/logout"><span class="material-icons verticalSpanIcon">
+                                    logout
+                                    </span>Logout </a>
                                 </li>
                             </ul>
                         </li>
@@ -128,18 +122,27 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li>
-                                        <a class="dropdown-item" href="/me"><i class="fas fa-user-alt">&nbsp;&nbsp; Go to Profile</i></a>
+                                        <a class="dropdown-item" href="/me"> <span class="material-icons verticalSpanIcon">
+                                            account_circle
+                                            </span> Go to Profile </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/#"><i class="fas fa-music">&nbsp;&nbsp; My Playlists</a></i>
+                                        <a class="dropdown-item" href="/playlist"><span class="material-icons verticalSpanIcon">
+                                            playlist_play
+                                            </span> My Playlists</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="/#"><i class="fas fa-history">&nbsp;&nbsp; My History</i></a>
+                                        <a class="dropdown-item" href="/#"><span class="material-icons verticalSpanIcon">
+                                            history
+                                            </span> My History </a>
                                     </li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>
-                                    <li><a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt">&nbsp;&nbsp;Logout</i></a></li>
+                                    <li><a class="dropdown-item" href="/logout"><span class="material-icons verticalSpanIcon">
+                                        logout
+                                        </span>Logout </a>
+                                    </li>
                                 </ul>
                             </li>
                         </form>

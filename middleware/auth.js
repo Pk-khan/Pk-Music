@@ -29,7 +29,7 @@ async function getCurrentUser(cookies) {
         user = await User.findById(decode);
         if (!user)
             return;
-        user = user._id;
+
         return user;
     } catch (ex) {
         console.log(ex);

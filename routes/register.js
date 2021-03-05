@@ -14,8 +14,6 @@ router.post('/', async(request, response) => {
 
     const result = await validate.validateUser(request.body);
 
-    console.log(result);
-
     if (result.error) {
 
         if (result.error.message.includes("name")) {
