@@ -4,10 +4,6 @@
 
     </div>
 
-    <div class="center">
-        <h1 id="resultMessage"></h1>
-    </div>
-
     <br/><br/>
 
     <div class="container">
@@ -20,26 +16,27 @@
 
                 <form id="uploadSong">
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label" class="fw-bold"><span class="material-icons">drive_file_rename_outline</span> Song Name</label>
+                        <label for="exampleInputEmail1" class="form-label whiteColor" class="fw-bold"><span class="material-icons verticalSpanIcon">drive_file_rename_outline</span> Song Name</label>
                         <input type="text" class="form-control" id="name" aria-describedby="emailHelp" required>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label"><span class="material-icons"> category</span> Genre</label>
+                        <label for="exampleInputEmail1" class="form-label whiteColor"><span class="material-icons verticalSpanIcon"> category</span> Genre</label>
                         <input type="text" class="form-control" id="genre" aria-describedby="emailHelp" required>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label"> <span class="material-icons">album</span> Album Name</label>
-                        <input type="text" class="form-control" id="album" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1" class="form-label whiteColor"> <span class="material-icons verticalSpanIcon">album</span> Album Name</label>
+                        <input type="text" class="form-control " id="album" aria-describedby="emailHelp">
                     </div>
 
 
-                    <span class="material-icons">
+
+                    <div class="whiteColor"> <span class="material-icons verticalSpanIcon">
                         audiotrack
-                        </span>Select .mp3 file<br/>
+                        </span> Select .mp3 file </div>
 
-                    <input type="file" multiple="false" accept=".mp3,audio/*" id="finput">
+                    <input class="whiteColor" type="file" multiple="false" accept=".mp3,audio/*" id="finput">
 
-                    <button class="btn btn-primary "> <span class="material-icons ">upload</span> Upload </button>
+                    <button class="btn btn-primary "> <span class="material-icons verticalSpanIcon">upload</span> Upload </button>
                 </form>
 
             </div>

@@ -7,7 +7,7 @@ const getCurrentUser = require('../middleware/auth').getCurrentUser;
 const { response } = require('express');
 
 
-// To get all playlist of currently logged in user/artist
+// To get all playlist of currently logged in user
 router.get('/', auth, async(request, response) => {
 
     let allPlaylist;
@@ -32,7 +32,7 @@ router.get('/', auth, async(request, response) => {
 });
 
 
-// To get particular playlist
+// To get particular playlist with params.id
 router.get('/:id', auth, async(request, response) => {
 
     let playlist;
@@ -50,6 +50,36 @@ router.get('/:id', auth, async(request, response) => {
 
     response.render("../views/showPlaylist.ejs", { data });
 
+});
+
+
+// To Create a New Playlist
+router.post('/createNewPlaylist', auth, async(request, response) => {
+
+    let user = await getCurrentUser(request.cookies);
+    if (!user) {
+
+        return response.status(401).send("User not found");
+    }
+
+    let playlistName = request.body.name;
+
+    const isPlaylistAlreadyExist = await Playlist.findOne({ 'name': playlistName, 'user': user._id });
+
+    if (isPlaylistAlreadyExist)
+        return response.send({
+            msg: "Playlist already exists"
+        });
+
+    let playlist = {
+        'name': playlistName,
+        'user': user
+    };
+
+    playlist = new Playlist(playlist);
+    await playlist.save();
+
+    response.send({ msg: playlist.name + " playlist created..." });
 });
 
 
@@ -114,35 +144,6 @@ router.post('/deletePlaylist', auth, async(request, response) => {
 
 
 
-// To Create a New Playlist
-router.post('/createNewPlaylist', auth, async(request, response) => {
-
-    let user = await getCurrentUser(request.cookies);
-    if (!user) {
-
-        return response.status(401).send("User not found");
-    }
-
-    let playlistName = request.body.name;
-
-    const isPlaylistAlreadyExist = await Playlist.findOne({ 'name': playlistName, 'user': user._id });
-
-    if (isPlaylistAlreadyExist)
-        return response.send({
-            msg: "Playlist already exists"
-        });
-
-    let playlist = {
-        'name': playlistName,
-        'user': user
-    };
-
-    playlist = new Playlist(playlist);
-    await playlist.save();
-
-    response.send({ msg: playlist.name + " playlist created..." });
-});
-
 
 // To add Song into the particular playlist
 router.post('/addSongIntoPlaylist', auth, async(request, response) => {
@@ -191,6 +192,50 @@ router.post('/addSongIntoPlaylist', auth, async(request, response) => {
     });
 
 });
+
+
+
+
+
+// To remove a song from a specific playlist
+router.post('/removeSong', auth, async(request, response) => {
+
+    let user = await getCurrentUser(request.cookies);
+    if (!user) {
+        return response.status(401).send("User not found");
+    }
+
+    let playlistId = request.body.playlistId;
+    let songId = request.body.songId;
+
+    const resPlaylist = await Playlist.findById(playlistId);
+    const songs = resPlaylist.songs;
+
+    if (!resPlaylist)
+        return response.send({
+            msg: "Playlist does not exist"
+        });
+
+
+    if (!songs.includes(songId)) {
+        return response.send({
+            msg: "Song does not exist"
+        });
+    }
+
+
+    await Playlist.updateOne({
+        _id: playlistId
+    }, { $pull: { songs: songId } });
+
+
+    response.send({
+        msg: "Song removed successfully"
+    });
+
+});
+
+
 
 
 module.exports = router;

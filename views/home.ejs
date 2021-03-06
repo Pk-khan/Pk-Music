@@ -1,35 +1,34 @@
 <%- include('./partial/header.ejs'); %>
 
-
-    <p class="fs-3 center" id="resultMessage"></p>
-
     <div class="container ">
 
         <div class="row ">
             <div class="col-sm-3 ">
             </div>
-            <div class="col-sm-9 ">
 
+            <div class="col-sm-9 ">
                 <p class="display-6 ">Songs</p>
                 <div class="row ">
                     <% for( var i = 0; i< data.recentSongs.length; i++ )  { %>
 
                         <div class="col-sm-3 ">
                             <div class="card-body border">
-                                <h5 class="card-title ">
+                                <h5 class="card-title whiteColor">
                                     <%= data.recentSongs[i].name %>
                                 </h5>
-                                <p class="card-text ">
+                                <p class="card-text whiteColor">
                                     <%= data.recentSongs[i].artist.name %>
                                 </p>
 
                                 <button onclick="fetchSong( '<%= data.recentSongs[i]._id %>' ) " class="btn btn-primary "><span  class="material-icons verticalSpanIcon">
                                     <div id = "playStatus " >play_arrow</div></span>
                                </button>
-
-                                <div class="dropdown ">
-                                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                                <span class="caret"></span></button>
+                                <br/><br/>
+                                <div class="dropdown">
+                                    <button class="btn btn-primary whiteColor" type="button" data-toggle="dropdown">
+                                        <span class="material-icons verticalSpanIcon">
+                                            more_horiz
+                                            </span></button>
                                     <ul class="dropdown-menu center">
                                         <li class="dropdown-submenu">
                                             <a class="test noUnderline " tabindex="-1 " href="# ">Add to playlist <span class="caret "></span></a>
@@ -48,8 +47,6 @@
                                         </li>
                                     </ul>
                                 </div>
-
-
                             </div>
                             <br/>
                         </div>
