@@ -181,6 +181,11 @@
 
             playlistId = null;
 
+            setTimeout(function() {
+                location.assign('/playlist');
+            }, 1000);
+
+
         }
 
         async function createPlaylist() {
@@ -212,6 +217,11 @@
                 console.log(ex);
                 resultMessage.innerHTML = ex;
             }
+
+            setTimeout(function() {
+                location.assign('/playlist');
+            }, 1000);
+
         }
 
 
@@ -245,6 +255,11 @@
             }
 
             playlistId = null;
+
+            setTimeout(function() {
+                location.assign('/playlist');
+            }, 1000);
+
         }
     </script>
 

@@ -4,6 +4,7 @@
 
         <div class="row ">
             <div class="col-sm-3 ">
+
             </div>
 
             <div class="col-sm-9 ">
@@ -20,8 +21,8 @@
                                     <%= data.recentSongs[i].artist.name %>
                                 </p>
 
-                                <button onclick="fetchSong( '<%= data.recentSongs[i]._id %>' ) " class="btn btn-primary "><span  class="material-icons verticalSpanIcon">
-                                    <div id = "playStatus " >play_arrow</div></span>
+                                <button onclick="fetchSong( '<%= data.recentSongs[i]._id %>')" class="btn btn-primary"><span  class="material-icons verticalSpanIcon">
+                                    <div id = 'playStatus' >play_arrow</div></span>
                                </button>
                                 <br/><br/>
                                 <div class="dropdown">
@@ -63,15 +64,9 @@
 
     </div>
 
-    <audio class="fix " id="audio " controls="controls " type="audio/mpeg ">
-    </audio>
-
-
-
-
     <script>
         $(document).ready(function() {
-            $('.dropdown-submenu a.test').on("click ", function(e) {
+            $('.dropdown-submenu a.test').on("click", function(e) {
                 $(this).next('ul').toggle();
                 e.stopPropagation();
                 e.preventDefault();
@@ -81,7 +76,6 @@
         async function addSongIntoPlaylist(playlistId, songId) {
 
             var resultMessage = document.getElementById("resultMessage");
-            console.log(songId);
 
             var data = {
                 songId,
@@ -108,23 +102,11 @@
                 resultMessage.innerHTML = ex;
             }
 
+            setTimeout(function() {
+                resultMessage.innerHTML = '';
+            }, 1000);
 
-        }
 
-        async function fetchSong(id) {
-
-            var audio = document.getElementById("audio ");
-
-            var options = {
-                method: 'GET',
-            }
-
-            var res = await fetch(`/song/${id}`, options);
-            res = await res.json();
-
-            audio.src = res.songFile;
-            audio.load();
-            audio.play();
         }
     </script>
 

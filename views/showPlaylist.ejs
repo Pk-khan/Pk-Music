@@ -3,7 +3,6 @@
     <p class="fs-1 text-secondary center">
         <i class="text-primary">   <%= data.playlist.name %> </i> playlist </p>
 
-
     <div class="modal fade" id="removeSong" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -21,8 +20,6 @@
             </div>
         </div>
     </div>
-
-
 
 
     <div class="container">
@@ -47,9 +44,9 @@
                                 </th>
 
                                 <td>
-                                    <a href='playlist/<%= data.playlist.songs[i].name%>' class="noUnderline fs-4">
+                                    <button style=" background:none;border:none;color:#007bff;" class="link fs-4" onclick="fetchSong('<%= data.playlist.songs[i]._id %>')">
                                         <%= data.playlist.songs[i].name %>
-                                    </a>
+                                    </button>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" onclick="removeSong( '<%= data.playlist._id %>' , '<%= data.playlist.songs[i]._id %>')">
@@ -113,6 +110,11 @@
 
             playlistId = null;
             songId = null;
+
+            setTimeout(function() {
+                location.assign("/playlist/<%= data.playlist._id %>");
+            }, 1000);
+
 
         }
     </script>

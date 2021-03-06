@@ -31,6 +31,11 @@ footer {
     margin-right: auto;
 }
 
+.left {
+    text-align: left;
+    margin-left: 0%;
+}
+
 .fix {
     position: fixed;
     padding: 20px 20px 20px 20px;

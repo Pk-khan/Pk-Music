@@ -26,9 +26,9 @@
                                     <%= i+1 %>
                                 </th>
                                 <td>
-                                    <a href='playlist/<%= data.album.songs[i].name%>' class="noUnderline fs-4">
+                                    <button style=" background:none;border:none;color:#007bff;" class="link fs-4" onclick="fetchSong('<%= data.album.songs[i]._id %>')">
                                         <%= data.album.songs[i].name %>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                             <% } %>
