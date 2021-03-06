@@ -4,6 +4,7 @@ const Song = require('../model/Song');
 const Playlist = require('../model/Playlist');
 const auth = require('../middleware/auth').auth;
 const getCurrentUser = require('../middleware/auth').getCurrentUser;
+const { response } = require('express');
 
 
 // To get all playlist of currently logged in user/artist
@@ -51,6 +52,65 @@ router.get('/:id', auth, async(request, response) => {
 
 });
 
+
+
+
+// To Rename a specific playlist
+router.post('/renamePlaylist', auth, async(request, response) => {
+
+    let user = await getCurrentUser(request.cookies);
+    if (!user) {
+
+        return response.status(401).send("User not found");
+    }
+
+    const playlistId = request.body.playlistId;
+    const playlistNewName = request.body.playlistNewName;
+
+    let resPlaylist = await Playlist.findById(playlistId);
+
+    if (!resPlaylist)
+        return response.send({
+            msg: "Playlist does not exist"
+        });
+
+    resPlaylist.name = playlistNewName;
+    await resPlaylist.save();
+
+
+    response.send({ msg: "Playlist Rename successfully" });
+
+});
+
+
+
+
+
+
+// To delete a specific playlist
+router.post('/deletePlaylist', auth, async(request, response) => {
+
+    let user = await getCurrentUser(request.cookies);
+    if (!user) {
+
+        return response.status(401).send("User not found");
+    }
+
+    let playlistId = request.body.playlistId;
+
+    const res = await Playlist.findById(playlistId);
+
+    if (!res)
+        return response.send({
+            msg: "Playlist does not exist"
+        });
+
+
+    await Playlist.deleteOne({ _id: playlistId });
+
+    response.send({ msg: "Playlist delete successfully" });
+
+});
 
 
 
