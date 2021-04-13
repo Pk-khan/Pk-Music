@@ -17,15 +17,17 @@
                 <form id="uploadSong">
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label whiteColor" class="fw-bold"><span class="material-icons verticalSpanIcon">drive_file_rename_outline</span> Song Name</label>
-                        <input type="text" class="form-control" id="name" aria-describedby="emailHelp" required>
+                        <input type="text" class="form-control font-weight-bold" id="name" aria-describedby="emailHelp" required>
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label whiteColor"><span class="material-icons verticalSpanIcon"> category</span> Genre</label>
-                        <input type="text" class="form-control" id="genre" aria-describedby="emailHelp" required>
+                        <input type="text" class="form-control font-weight-bold" id="genre" aria-describedby="emailHelp" required>
                     </div>
                     <div class="mb-3">
-                        <label for="exampleInputEmail1" class="form-label whiteColor"> <span class="material-icons verticalSpanIcon">album</span> Album Name</label>
-                        <input type="text" class="form-control " id="album" aria-describedby="emailHelp">
+                        <label for="exampleInputEmail1" class="form-label whiteColor"> <span class="material-icons verticalSpanIcon">album</span> Album Name</label> &nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" id="checkBoxAlbumName" onclick="checkBox()"> &nbsp;
+                        <label for="vehicle1" class="whiteColor"> Same as Song Name</label><br>
+                        <input type="text" class="form-control font-weight-bold" id="album" aria-describedby="emailHelp">
                     </div>
 
 
@@ -49,6 +51,17 @@
 
 
     <script>
+        function checkBox() {
+            var checkBoxAlbumName = document.getElementById("checkBoxAlbumName");
+            var album = document.getElementById("album");
+
+            if (checkBoxAlbumName.checked == true) {
+                album.value = document.getElementById("name").value.trim();
+            } else {
+                album.value = '';
+            }
+        }
+
         var showLoader = document.getElementById("showLoader");
 
         var img = document.getElementById("finput");

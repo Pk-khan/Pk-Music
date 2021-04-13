@@ -9,10 +9,14 @@ router.get('/', auth, async(request, response) => {
 
     var recentSongs = await Song.find().populate("artist");
 
+    recentSongs.sort(function(a, b) {
+        return b.time - a.time;
+    });
+
+
     var user = await getCurrentUser(request.cookies);
 
     var playlists = await Playlist.find({ user: user._id });
-
 
     data = {
         recentSongs,

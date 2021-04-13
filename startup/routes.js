@@ -9,6 +9,8 @@ const playlist = require('../routes/playlist');
 const logout = require('../routes/logout');
 const checkUser = require('../middleware/auth').checkUser
 const album = require('../routes/album');
+const me = require('../routes/me');
+const history = require('../routes/history');
 
 
 module.exports = function(app) {
@@ -35,5 +37,7 @@ module.exports = function(app) {
     app.use('/playlist', playlist);
     app.use('/logout', logout);
     app.use('/album', album);
+    app.use('/me', me);
+    app.use('/history', history);
 
 }
