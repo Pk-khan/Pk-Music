@@ -32,20 +32,20 @@
                                             <button onclick="fetchSong( '<%= data.recentSongs[i]._id %>') " class="btn btn-primary "><span  class="material-icons verticalSpanIcon ">
                                     <div id = 'playStatus' >play_arrow</div></span>
                                </button> &nbsp;&nbsp;&nbsp;
-                                            <div class="dropdown ">
-                                                <button class="btn btn-primary whiteColor " type="button " data-toggle='dropdown'>
+                                            <div class="dropdown">
+                                                <button class="btn btn-primary whiteColor" type="button" data-toggle='dropdown'>
                                         <span class=" material-icons verticalSpanIcon ">
                                             more_horiz
                                             </span></button>
-                                                <ul class="dropdown-menu center ">
-                                                    <li class="dropdown-submenu ">
-                                                        <a class="test noUnderline " tabindex="-1 " href="# ">Add to playlist <span class="caret "></span></a>
-                                                        <ul class="dropdown-menu center ">
+                                                <ul class="dropdown-menu center">
+                                                    <li class="dropdown-submenu">
+                                                        <a class="test noUnderline" tabindex="-1" href="#">Add to playlist <span class="caret"></span></a>
+                                                        <ul class="dropdown-menu center">
 
                                                             <% for( var j = 0; j< data.playlists.length; j++ )  { %>
 
                                                                 <li>
-                                                                    <button style="background:none;border:none; color:rgb(34, 91, 165); " onclick="addSongIntoPlaylist( '<%= data.playlists[j]._id %>', '<%= data.recentSongs[i]._id %>') ">
+                                                                    <button style="background:none;border:none; color:rgb(34, 91, 165); " onclick="addSongIntoPlaylist( '<%= data.playlists[j]._id %>', '<%= data.recentSongs[i]._id %>')">
                                                             <%= data.playlists[j].name %>
                                                         </button>
                                                                 </li>

@@ -10,6 +10,12 @@ const History = require('../Model/History');
 const { getCurrentUser } = require('../middleware/auth');
 
 
+// To get upload page for Artists
+router.get('/upload', auth, async(request, response) => {
+
+    response.render("../views/addNewSong.ejs", {});
+
+});
 
 
 // Fetch song with song id as params.id
@@ -59,12 +65,6 @@ router.get('/:id', auth, async(request, response) => {
 
 
 
-// To get upload page for Artists
-router.get('/upload', auth, async(request, response) => {
-
-    response.render("../views/addNewSong.ejs", {});
-
-});
 
 
 
