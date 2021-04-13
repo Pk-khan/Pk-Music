@@ -1,82 +1,86 @@
 <%- include('./partial/header.ejs'); %>
 
-    <div class="container ">
 
-        <div class="row ">
 
-            <div class="col-sm-3">
+    <div class="row ">
 
-            </div>
+        <div class="col-sm-3">
 
-            <div class="col-sm-9 ">
-                <p class="display-6 whiteColor">Recent Songs</p>
+        </div>
+
+        <div class="col-sm-9 ">
+            <p class="display-6 whiteColor">New Released Songs</p>
+
+            <div class="container ">
                 <div class="row ">
-                    <% for( var i = 0; i< data.recentSongs.length; i++ )  { %>
 
-                        <div class="col-sm-3 ">
-                            <div class="card-body border ">
-                                <h5 class="card-title whiteColor center ">
-                                    <%= data.recentSongs[i].name %>
-                                </h5>
-                                <p class="card-text whiteColor center ">
-                                    <%= data.recentSongs[i].artist.name %>
-                                </p>
+                    <!---------------------------------------------slider------------------------------------------------------------>
+                    <div class="carousel" data-flickity='{ "wrapAround": true, "autoPlay": true,"groupCells": true}'>
+                        <% for( var i = 0; i< data.recentSongs.length; i++ )  { %>
 
-                                <div style="display:inline-flex; margin-left:10% ">
-                                    <button onclick="fetchSong( '<%= data.recentSongs[i]._id %>') " class="btn btn-primary "><span  class="material-icons verticalSpanIcon ">
+                            <div class="col-sm-3 ">
+                                <div class="carousel-cell">
+                                    <div class="card-body cardView">
+                                        <h5 class="card-title whiteColor center ">
+                                            <%= data.recentSongs[i].name %>
+                                        </h5>
+                                        <p class="card-text whiteColor center ">
+                                            <%= data.recentSongs[i].artist.name %>
+                                        </p>
+
+                                        <div style="display:inline-flex; margin-left:10% ">
+                                            <button onclick="fetchSong( '<%= data.recentSongs[i]._id %>') " class="btn btn-primary "><span  class="material-icons verticalSpanIcon ">
                                     <div id = 'playStatus' >play_arrow</div></span>
                                </button> &nbsp;&nbsp;&nbsp;
-                                    <div class="dropdown ">
-                                        <button class="btn btn-primary whiteColor " type="button " data-toggle='dropdown'>
+                                            <div class="dropdown ">
+                                                <button class="btn btn-primary whiteColor " type="button " data-toggle='dropdown'>
                                         <span class=" material-icons verticalSpanIcon ">
                                             more_horiz
                                             </span></button>
-                                        <ul class="dropdown-menu center ">
-                                            <li class="dropdown-submenu ">
-                                                <a class="test noUnderline " tabindex="-1 " href="# ">Add to playlist <span class="caret "></span></a>
                                                 <ul class="dropdown-menu center ">
+                                                    <li class="dropdown-submenu ">
+                                                        <a class="test noUnderline " tabindex="-1 " href="# ">Add to playlist <span class="caret "></span></a>
+                                                        <ul class="dropdown-menu center ">
 
-                                                    <% for( var j = 0; j< data.playlists.length; j++ )  { %>
+                                                            <% for( var j = 0; j< data.playlists.length; j++ )  { %>
 
-                                                        <li>
-                                                            <button style="background:none;border:none; color:rgb(34, 91, 165); " onclick="addSongIntoPlaylist( '<%= data.playlists[j]._id %>', '<%= data.recentSongs[i]._id %>') ">
+                                                                <li>
+                                                                    <button style="background:none;border:none; color:rgb(34, 91, 165); " onclick="addSongIntoPlaylist( '<%= data.playlists[j]._id %>', '<%= data.recentSongs[i]._id %>') ">
                                                             <%= data.playlists[j].name %>
                                                         </button>
-                                                        </li>
+                                                                </li>
 
-                                                        <% } %>
+                                                                <% } %>
+                                                        </ul>
+                                                    </li>
                                                 </ul>
-                                            </li>
-                                        </ul>
+                                            </div>
+                                        </div>
+                                        <div class="whiteColor center ">
+                                            <%= data.recentSongs[i].plays %> plays</div>
                                     </div>
                                 </div>
-                                <div class="whiteColor center ">
-                                    <%= data.recentSongs[i].plays %> plays</div>
                             </div>
-                            <br/>
-                        </div>
+                            <!--------------------------------------------------------------------------------------------------------->
 
-                        <% } %>
+                            <% } %>
+
+
+
+                    </div>
+
                 </div>
             </div>
-            <br/>
-
-
-            <br/>
         </div>
 
 
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('.dropdown-submenu a.test').on("click ", function(e) {
-                $(this).next('ul').toggle();
-                e.stopPropagation();
-                e.preventDefault();
-            });
-        });
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
+    <script>
+        /*------------------slider---------------------------------------*/
         async function addSongIntoPlaylist(playlistId, songId) {
 
             var resultMessage = document.getElementById('resultMessage');
@@ -113,6 +117,9 @@
 
         }
     </script>
+
+
+
 
 
     <%- include('./partial/footer.ejs'); %>

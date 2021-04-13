@@ -27,7 +27,23 @@
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
     <script src="/js/myjs.js" type="text/javascript"></script>
 
+    <!------slider------->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+    <!-------------slider-------------------->
+    <link rel="icon" href="/images/abc.ico">
+
     <title>Music</title>
+    <style media="screen">
+        .carousel-cell {
+            width: 65%;
+        }
+        /* cell number */
+        
+        .carousel-cell:before {
+            display: block;
+        }
+    </style>
 
 </head>
 
@@ -46,129 +62,182 @@
     -->
 
 
+    <% if (user) { %>
 
+        <!-- Model for User -->
+        <div class="modal" id="me" tabindex="-1" role="dialog" aria-labelledby="profile" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="profile">My Profile</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div>
+                    <div class="modal-body">
+                        <div> <img src="/images/user.png" alt="No Image" srcset="" class="img-circle profile-img" height="90px" width="90px"> </div>
+                        <div class="row top10">
+                            <div class="col-lg-12 offset-lg-0 col-sm-8 offset-sm-2">
+                                <div class="user-info table-responsive-md">
+                                    <table class="table table-sm table-primary table-striped">
+                                        <tbody>
+                                            <tr>
+                                                <td style="font-weight: 500;">Email</td>
+                                                <td>
+                                                    <%=user.email  %>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: 500;">Name</td>
+                                                <td>
+                                                    <%=user.name %>
+                                                </td>
+                                            </tr>
 
-
-
-
-
-
-    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary" id='myNavbar'>
-        <div class="container">
-            <!-- <a class="navbar-brand" href="#">Navbar</a> -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="navbar-brand" href="/"><i class="fas fa-home"></i> Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </li>
-
-                </ul>
-                <% if( user && user.isArtist) { %>
-                    <form class="d-flex">
-                        <li class="nav-item dropdown">
-                            <a class='nav-link dropdown-toggle dropdownClass' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false' style="color:white">
-                                <% if(user.imageUrl) { %>
-                                    <img id="myImage" class="rounded-circle border-3 borderT" src="<%= user.imageUrl %>" width="50px" height="50px">
-                                    <% } %>
-                                        <%= user.name %>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item" href="/me"> <span class="material-icons verticalSpanIcon">
-                                        account_circle
-                                        </span> Go to Profile </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/song/upload/"> <span class="material-icons verticalSpanIcon">
-                                        file_upload
-                                        </span> Upload New Songs </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/album"><span class="material-icons verticalSpanIcon">
-                                        album
-                                        </span>  My Albums </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/playlist"><span class="material-icons verticalSpanIcon">
-                                        playlist_play
-                                        </span> My Playlists</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="/history"><span class="material-icons verticalSpanIcon">
-                                        history
-                                        </span> My History </a>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="/logout"><span class="material-icons verticalSpanIcon">
-                                    logout
-                                    </span> Logout </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </form>
-
-
-                    <% } else if(user && !user.isArtist) { %>
-
-                        <form class="d-flex">
-                            <li class="nav-item dropdown">
-                                <a class='nav-link dropdown-toggle dropdownClass' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false' style="color:white">
-                                    <% if(user.imageUrl) { %>
-                                        <img id="myImage" class="rounded-circle border-3 borderT" src="<%= user.imageUrl %>" width="50px" height="50px">
-                                        <% } %>
-                                            <%= user.name %>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li>
-                                        <a class="dropdown-item" href="/me"> <span class="material-icons verticalSpanIcon">
-                                            account_circle
-                                            </span> Go to Profile </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="/playlist"><span class="material-icons verticalSpanIcon">
-                                            playlist_play
-                                            </span> My Playlists</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="/history"><span class="material-icons verticalSpanIcon">
-                                            history
-                                            </span> My History </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="/logout"><span class="material-icons verticalSpanIcon">
-                                        logout
-                                        </span> Logout </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </form>
-
-                        <% } else { %>
-                            <form class="d-flex">
-                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                    <li class="nav-item">
-                                        <a class="nav-link active fs-5" aria-current="page" href="/login">
-                                            <i class="fas fa-user"></i> Login &nbsp;&nbsp;</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link active fs-5" aria-current="page" href="/register"><i class="fas fa-user-plus">&nbsp;SignUp</i></a>
-                                    </li>
-                                </ul>
-                            </form>
-                            <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </nav>
 
 
 
-    <div class="center">
-        <p id="resultMessage" class="fs-1 whiteColor"></p>
-    </div>
+        <% } %>
+
+            <nav class="navbar navbar-expand-lg navbar-dark " id='myNavbar'>
+                <div class="container">
+                    <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><img src="/images/logo1.jpg" height="50" width="80" id="logo"></li>
+                            <li class="nav-item">
+
+                                <a class="navbar-brand home" href="/">Home<span class="display-6 logo"><img src="/images/guitar.png" height="50" width="50" id="guitar">Music.com</span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            </li>
+
+                        </ul>
+                        <% if( user && user.isArtist) { %>
+                            <form class="d-flex">
+                                <li class="nav-item dropdown">
+                                    <a class='nav-link dropdown-toggle dropdownClass' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false' style="color:white">
+                                        <% if(user.imageUrl) { %>
+                                            <img id="myImage" class="rounded-circle border-3 borderT" src="<%= user.imageUrl %>" width="50px" height="50px">
+                                            <% } %>
+                                                <%= user.name %>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li>
+                                            <a class="dropdown-item" href="" data-toggle="modal" data-target="#me"> <span class="material-icons verticalSpanIcon">
+                                        account_circle
+                                        </span> Go to Profile </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/song/upload/"> <span class="material-icons verticalSpanIcon">
+                                        file_upload
+                                        </span> Upload New Songs </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/album"><span class="material-icons verticalSpanIcon">
+                                        album
+                                        </span>  My Albums </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/playlist"><span class="material-icons verticalSpanIcon">
+                                        playlist_play
+                                        </span> My Playlists</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/history"><span class="material-icons verticalSpanIcon">
+                                        history
+                                        </span> My History </a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="/logout"><span class="material-icons verticalSpanIcon">
+                                    logout
+                                    </span> Logout </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </form>
+
+
+                            <% } else if(user && !user.isArtist) { %>
+
+                                <form class="d-flex">
+                                    <li class="nav-item dropdown">
+                                        <a class='nav-link dropdown-toggle dropdownClass' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown' aria-expanded='false' style="color:white">
+                                            <% if(user.imageUrl) { %>
+                                                <img id="myImage" class="rounded-circle border-3 borderT" src="<%= user.imageUrl %>" width="50px" height="50px">
+                                                <% } %>
+                                                    <%= user.name %>
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li>
+                                                <a class="dropdown-item" href="/me"> <span class="material-icons verticalSpanIcon">
+                                            account_circle
+                                            </span> Go to Profile </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="/playlist"><span class="material-icons verticalSpanIcon">
+                                            playlist_play
+                                            </span> My Playlists</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="/history"><span class="material-icons verticalSpanIcon">
+                                            history
+                                            </span> My History </a>
+                                            </li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="/logout"><span class="material-icons verticalSpanIcon">
+                                        logout
+                                        </span> Logout </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </form>
+
+                                <% } else { %>
+                                    <form class="d-flex">
+                                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                            <li class="nav-item">
+                                                <a class="nav-link active fs-5" aria-current="page" href="/login">
+                                                    <i class="fas fa-user"></i> Login &nbsp;&nbsp;</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active fs-5" aria-current="page" href="/register"><i class="fas fa-user-plus">&nbsp;SignUp</i></a>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                    <% } %>
+                    </div>
+                </div>
+            </nav>
+
+
+            <div class="wrapper">
+                <div class="sidebar">
+                    <p class="display-6 library">Library</p>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-history"></i>History</a></li>
+                        <li><a href="#"><i class="fas fa-music"></i>Songs</a></li>
+                        <li><a href="#"><i class="fas fa-compact-disc"></i>Album</a></li>
+                        <li><a href="#"><i class="fas fa-project-diagram"></i>Prodcast</a></li>
+                        <li><a href="#"><i class="fas fa-user"></i>Artist</a></li>
+                        <li><a href="#"><i class="fas fa-plus"></i>New Playlist</a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+            </div>
+
+            <div class="center">
+                <p id="resultMessage" class="fs-1 whiteColor"></p>
+            </div>
