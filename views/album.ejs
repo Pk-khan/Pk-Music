@@ -1,7 +1,9 @@
 <%- include('./partial/header.ejs'); %>
 
 
-    <p class="fs-1 text-secondary center">Your Albums</p>
+    <p class="fs-1 text-secondary center">
+        <%= data.text %>
+    </p>
 
     <br/>
     <div class="container">
@@ -25,7 +27,7 @@
                                     <%= (i+1) %>
                                 </th>
                                 <td>
-                                    <a href='album/<%= data.album[i]._id%>' class="noUnderline fs-4">
+                                    <a href='/album/<%= data.album[i]._id%>' class="noUnderline fs-4">
                                         <%= data.album[i].name %>
                                     </a>
                                 </td>

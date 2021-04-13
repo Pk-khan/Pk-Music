@@ -6,7 +6,7 @@ const auth = require('../middleware/auth').auth;
 const getCurrentUser = require('../middleware/auth').getCurrentUser;
 const { response } = require('express');
 
-
+// Get Album of current logged in Artist
 router.get('/', auth, async(request, response) => {
 
     var data;
@@ -18,13 +18,16 @@ router.get('/', auth, async(request, response) => {
     var album = await Album.find({ artist: user._id });
 
     var data = {
-        album
+        album,
+        text: "Your Albums"
     };
 
     response.render('../views/album.ejs', { data });
 
 });
 
+
+// Get songs of particular Album
 router.get('/:id', auth, async(request, response) => {
 
     let album;
@@ -37,10 +40,34 @@ router.get('/:id', auth, async(request, response) => {
         return response.send("Invalid Album");
 
     var data = {
-        album
+        album,
+
     };
 
     response.render("../views/showAlbum.ejs", { data });
+
+});
+
+
+// Get all albums
+router.get('/:show/:all', auth, async(request, response) => {
+
+    let album;
+    try {
+        album = await Album.find().populate("songs");
+    } catch (ex) {
+        return response.status(404).send("Invalid Album");
+    }
+    if (!album)
+        return response.send("Invalid Album");
+
+    var data = {
+        album,
+        text: "All Albums"
+    };
+
+
+    response.render("../views/album.ejs", { data });
 
 });
 
