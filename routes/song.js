@@ -6,16 +6,18 @@ const Album = require('../model/Album');
 const jwt = require('jsonwebtoken');
 const auth = require('../middleware/auth').auth;
 const SongMediaFile = require('../Model/SongMediaFile');
+const History = require('../Model/History');
+const { getCurrentUser } = require('../middleware/auth');
 
 
-router.get('/upload', auth, async(request, response) => {
-
-    response.render("../views/addNewSong.ejs", {});
-
-});
 
 
+// Fetch song with song id as params.id
 router.get('/:id', auth, async(request, response) => {
+
+    const user = await getCurrentUser(request.cookies);
+    if (!user) return response.status(401).send("User not found");
+
 
     let song;
     try {
@@ -26,18 +28,48 @@ router.get('/:id', auth, async(request, response) => {
     if (!song)
         return response.status(404).send("Invalid song");
 
+
     song.plays = await song.plays + 1; // To increase play count
     await song.save();
+
+    let history = await History.findOne({ user: user._id });
+
+    if (!history) {
+        history = {
+            user: user._id
+        };
+
+        history = new History(history);
+
+        await history.save();
+    }
+
+    if (history.songs.includes(song._id)) {
+        await History.updateOne({ user: user._id }, { $pull: { songs: song._id } });
+    }
+
+    await History.updateOne({ user: user._id }, { $push: { songs: song._id } });
 
     song = await SongMediaFile.findById(song.url);
 
     response.send(song);
+});
+
+
+
+
+
+// To get upload page for Artists
+router.get('/upload', auth, async(request, response) => {
+
+    response.render("../views/addNewSong.ejs", {});
 
 });
 
 
 
-//This route is only accessible for Artist
+
+// To get uploaded song from the Artist
 router.post('/upload', auth, async(request, response) => {
 
     const name = request.body.name;
@@ -60,7 +92,7 @@ router.post('/upload', auth, async(request, response) => {
         const decode = jwt.verify(token, process.env.jwtKey);
         user = await User.findById(decode);
         if (!user) {
-            return response.status(404).send("Artist not found");
+            return response.status(401).send("Artist not found");
 
         }
         user = user._id;
@@ -107,8 +139,6 @@ router.post('/upload', auth, async(request, response) => {
     });
 
 });
-
-
 
 
 
