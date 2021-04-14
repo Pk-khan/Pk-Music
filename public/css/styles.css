@@ -98,14 +98,15 @@ footer {
     color: wheat;
 }
 
-.cardView:hover {
+
+/* .cardView:hover {
     border-radius: 10%;
     box-shadow: 8px 8px 8px 8px gray;
     position: relative;
     top: 3px;
     height: 160px;
     width: 160px;
-}
+} */
 
 .albumcardView {
     color: wheat;

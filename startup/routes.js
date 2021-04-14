@@ -11,6 +11,7 @@ const checkUser = require('../middleware/auth').checkUser
 const album = require('../routes/album');
 const me = require('../routes/me');
 const history = require('../routes/history');
+const artist = require('../routes/Artist');
 
 
 module.exports = function(app) {
@@ -39,5 +40,6 @@ module.exports = function(app) {
     app.use('/album', album);
     app.use('/me', me);
     app.use('/history', history);
+    app.use('/artist', artist);
 
 }

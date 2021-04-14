@@ -14,28 +14,22 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Album </th>
                             <th scope="col">Artist</th>
 
                         </tr>
                     </thead>
                     <tbody>
 
-                        <% for(var i = 0; i<data.album.length; i++)  {   %>
+                        <% for(var i = 0; i<data.artists.length; i++)  {   %>
 
                             <tr>
                                 <th scope="row">
                                     <%= (i+1) %>
                                 </th>
                                 <td>
-                                    <a href='/album/<%= data.album[i]._id%>' class="noUnderline fs-4">
-                                        <%= data.album[i].name %>
+                                    <a href='/artist/<%= data.artists[i]._id%>' class="noUnderline fs-4">
+                                        <%= data.artists[i].name %>
                                     </a>
-                                </td>
-                                <td>
-                                    <p class="fs-4">
-                                        <%= data.album[i].artist.name %>
-                                    </p>
                                 </td>
                             </tr>
                             <% } %>
@@ -48,8 +42,6 @@
     </div>
 
     <br/><br/><br/>
-
-
 
 
     <%- include('./partial/footer.ejs'); %>

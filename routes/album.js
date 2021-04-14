@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const Song = require('../model/Song');
 const Album = require('../model/Album');
 const auth = require('../middleware/auth').auth;
 const getCurrentUser = require('../middleware/auth').getCurrentUser;
@@ -15,11 +14,12 @@ router.get('/', auth, async(request, response) => {
     if (!user || !user.isArtist)
         return response.status(401).send("Invalid user");
 
-    var album = await Album.find({ artist: user._id });
+
+    var album = await Album.find({ artist: user._id }).populate("artist");
 
     var data = {
         album,
-        text: "Your Albums"
+        text: "My Albums"
     };
 
     response.render('../views/album.ejs', { data });
@@ -32,7 +32,7 @@ router.get('/:id', auth, async(request, response) => {
 
     let album;
     try {
-        album = await Album.findById(request.params.id).populate("songs");
+        album = await Album.findById(request.params.id).populate("songs").populate("artist");
     } catch (ex) {
         return response.status(404).send("Invalid Album");
     }
@@ -41,8 +41,8 @@ router.get('/:id', auth, async(request, response) => {
 
     var data = {
         album,
-
     };
+
 
     response.render("../views/showAlbum.ejs", { data });
 
@@ -54,7 +54,7 @@ router.get('/:show/:all', auth, async(request, response) => {
 
     let album;
     try {
-        album = await Album.find().populate("songs");
+        album = await Album.find().populate("songs").populate("artist");
     } catch (ex) {
         return response.status(404).send("Invalid Album");
     }

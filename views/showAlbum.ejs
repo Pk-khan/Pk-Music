@@ -14,7 +14,7 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Song Name</th>
-
+                            <th scope="col">Artist Name</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,6 +29,11 @@
                                     <button style=" background:none;border:none;color:#007bff;" class="link fs-4" onclick="fetchSong('<%= data.album.songs[i]._id %>')">
                                         <%= data.album.songs[i].name %>
                                     </button>
+                                </td>
+                                <td>
+                                    <a href='/artist/<%= data.album.artist._id%>' class="noUnderline fs-4">
+                                        <%= data.album.artist.name %>
+                                    </a>
                                 </td>
                             </tr>
                             <% } %>
