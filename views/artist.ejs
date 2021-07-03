@@ -1,47 +1,30 @@
 <%- include('./partial/header.ejs'); %>
 
 
-    <p class="fs-1 text-secondary center">
+    <h1 class="display-5 whiteColor center">
         <%= data.text %>
-    </p>
+    </h1>
 
     <br/>
+
     <div class="container">
         <div class="row">
-            <div class="col-sm-8 center">
+            <div class="col-sm-12 center " style=" margin-left:5%">
+                <% for(var i = 0; i<data.artists.length; i++)  {   %>
 
-                <table class="table whiteColor">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Artist</th>
+                    <div class="card-body albumcardView" style="margin-left:4% ">
+                        <p class="fs-5" style="color:rgb(255, 217, 0)">
+                            <%= data.artists[i].name%>
+                        </p>
 
-                        </tr>
-                    </thead>
-                    <tbody>
+                        <a href='/artist/<%= data.artists[i]._id%>'><button type="button" class="btn btn-outline-primary">Albums List</button></a>
+                    </div>
 
-                        <% for(var i = 0; i<data.artists.length; i++)  {   %>
-
-                            <tr>
-                                <th scope="row">
-                                    <%= (i+1) %>
-                                </th>
-                                <td>
-                                    <a href='/artist/<%= data.artists[i]._id%>' class="noUnderline fs-4">
-                                        <%= data.artists[i].name %>
-                                    </a>
-                                </td>
-                            </tr>
-                            <% } %>
-
-                    </tbody>
-                </table>
-
+                    <% } %>
             </div>
         </div>
     </div>
 
-    <br/><br/><br/>
 
 
     <%- include('./partial/footer.ejs'); %>

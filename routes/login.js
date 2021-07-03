@@ -10,7 +10,6 @@ router.get('/', async(request, response) => {
 
 });
 
-
 router.post('/', async function(request, response) {
 
     const result = await validate.validateLogin(request.body);

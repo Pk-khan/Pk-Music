@@ -98,29 +98,32 @@ footer {
     color: wheat;
 }
 
-
-/* .cardView:hover {
+.cardView:hover {
     border-radius: 10%;
     box-shadow: 8px 8px 8px 8px gray;
     position: relative;
     top: 3px;
     height: 160px;
     width: 160px;
-} */
+    z-index: 3;
+}
 
 .albumcardView {
     color: wheat;
     border-radius: 10%;
     box-shadow: 4px 4px 4px 4px gray;
     position: relative;
-    height: 160px;
-    width: 160px;
+    width: 200px;
     float: left;
     margin-bottom: 5%;
 }
 
 .albumcardView:hover {
     transform: scale(1.1);
+}
+
+.allsongs {
+    opacity: 0.5;
 }
 
 #myNavbar {

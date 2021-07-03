@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../model/User');
+const Song = require('../model/Song');
 
 function auth(request, response, next) {
 

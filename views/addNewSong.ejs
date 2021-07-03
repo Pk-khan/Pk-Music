@@ -27,16 +27,14 @@
                         <label for="exampleInputEmail1" class="form-label whiteColor"> <span class="material-icons verticalSpanIcon">album</span> Album Name</label> &nbsp;&nbsp;&nbsp;
                         <input type="checkbox" id="checkBoxAlbumName" onclick="checkBox()"> &nbsp;
                         <label for="vehicle1" class="whiteColor"> Same as Song Name</label><br>
-                        <input type="text" class="form-control font-weight-bold" id="album" aria-describedby="emailHelp">
+                        <input type="text" class="form-control font-weight-bold" id="album" aria-describedby="emailHelp" required>
                     </div>
-
-
 
                     <div class="whiteColor"> <span class="material-icons verticalSpanIcon">
                         audiotrack
                         </span> Select .mp3 file </div>
 
-                    <input class="whiteColor" type="file" multiple="false" accept=".mp3,audio/*" id="finput">
+                    <input class="whiteColor" type="file" multiple="false" accept=".mp3,audio/*" id="finput" required>
 
                     <button class="btn btn-primary "> <span class="material-icons verticalSpanIcon">upload</span> Upload </button>
                 </form>
@@ -69,12 +67,11 @@
         img.addEventListener('change', async function(event) {
             event.preventDefault();
             var file = event.target.files[0];
-
             formData = await toBase64(file);
 
         });
 
-        const toBase64 = file => new Promise((resolve, reject) => {
+            const toBase64 = file => new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => resolve(reader.result);

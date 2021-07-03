@@ -12,7 +12,9 @@
                 </div>
                 <div class="col-6">
                     <form id="registerUser">
-                        <h1>Register yourself</h1>
+
+                        <h1>Register </h1>
+
                         <div class="mb-3">
                             <label for="Name" class="form-label">Enter Name</label>
                             <input type="text" class="form-control" id="name" name="name" aria-describedby="emailHelp" required>
@@ -60,7 +62,6 @@
         const form = document.getElementById("registerUser");
         form.addEventListener("submit", async(event) => {
             event.preventDefault();
-            console.log("fdfdf");
             var name = form.name.value;
             var email = form.email.value;
             var password = form.password.value;
@@ -108,30 +109,6 @@
         }
     </script>
 
-    <footer>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-4">
-                    <br/>
-                    <p class=".fs-1" id="about"><i class="fas fa-info-circle"> About</i></p>
-                    <p class="footer"> Music Library<br/>Listen song free</p>
-
-                </div>
-                <div class="col-4">
-                    <br/>
-                    <p class=".fs-1"><i class="far fa-copyright"> Copyright</i></p>
-                </div>
-                <div class="col-4">
-                    <br/>
-                    <p class=".fs-1"><i class="fas fa-address-book"> Contact</i></p>
-                    <a target="_blank" class="footer noUnderline" href="https://www.linkedin.com/in/hemant-prakash-913559183/" style="color:hotpink"> <i class="fab fa-linkedin"> Hemant Prakash</i></a><br/>
-                    <a class="footer " href="mailto:hemantsood1999@gmail.com" style="color:hotpink"><i class="fas fa-envelope"> hemantsood1999@gmail.com</i></a><br/>
-                    <a target="_blank" class="footer noUnderline" href="https://github.com/Hemant-sood" style="color:hotpink"><i class="fab fa-github"> HemantSood</i></a><br/>
-
-                </div>
-            </div>
-        </div>
-    </footer>
 
     </body>
 

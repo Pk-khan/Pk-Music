@@ -12,6 +12,7 @@ const album = require('../routes/album');
 const me = require('../routes/me');
 const history = require('../routes/history');
 const artist = require('../routes/Artist');
+const allsongs = require('../routes/allsongs');
 
 
 module.exports = function(app) {
@@ -41,5 +42,6 @@ module.exports = function(app) {
     app.use('/me', me);
     app.use('/history', history);
     app.use('/artist', artist);
+    app.use('/allsongs',allsongs);
 
 }
