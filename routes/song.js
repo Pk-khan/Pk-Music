@@ -23,7 +23,6 @@ router.get('/:id', auth, async(request, response) => {
     const user = await getCurrentUser(request.cookies);
     if (!user) return response.status(401).send("User not found");
 
-
     let song;
     try {
         song = await Song.findById(request.params.id);
@@ -33,9 +32,12 @@ router.get('/:id', auth, async(request, response) => {
     if (!song)
         return response.status(404).send("Invalid song");
 
+    if (!song.artist.equals(user._id)) {
 
-    song.plays = await song.plays + 1; // To increase play count
-    await song.save();
+        song.plays = await song.plays + 1; // To increase play count
+        await song.save();
+
+    }
 
     let history = await History.findOne({ user: user._id });
 
