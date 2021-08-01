@@ -86,6 +86,14 @@ router.post('/upload', auth, async(request, response) => {
     if (request.body.genre)
         genre = request.body.genre;
 
+    var language = "";
+    if (request.body.language)
+        language = request.body.language;
+
+    if (language.localeCompare("") == 0) {
+        language = "None";
+    }
+
     var user;
 
     try {
@@ -113,7 +121,8 @@ router.post('/upload', auth, async(request, response) => {
         'url': songMediaFileId,
         genre,
         'artist': user,
-        album
+        album,
+        language
     };
 
     song = new Song(song);

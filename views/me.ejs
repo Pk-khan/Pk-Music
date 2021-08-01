@@ -1,14 +1,27 @@
 <%- include('./partial/header.ejs'); %>
+    <% var user = data.user;
+     %>
 
-    <h1 class="whiteColor">Hello</h1>
+        <br/><br/>
+        <h1 class="display-6 center whiteColor">
+            My Profile
+        </h1>
+        <br/><br/>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <h1 class="center" style="color:aqua">
+                        <%= user.name  %>
+                    </h1>
+                    <h1 class="center" style="color: chartreuse;">
+                        <%= user.email  %>
+                    </h1>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
+        </div>
 
 
-
-
-
-
-
-
-
-
-    <%- include('./partial/footer.ejs'); %>
+        <%- include('./partial/footer.ejs'); %>

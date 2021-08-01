@@ -91,52 +91,52 @@
                         %>
 
                             <% for( var i = 0; i< data.songs.length && i< 10; i++ )  { %>
-                                <% if(data.songs[i].plays>10) {%>
-                                    <div class="col-sm-3 ">
-                                        <div class="carousel-cell" style="height: 220px;">
-                                            <div class="card-body cardView">
-                                                <p class="card-title whiteColor center fs-5" style="color:rgb(255, 217, 0)">
-                                                    <%= data.songs[i].name %>
-                                                </p>
-                                                <p class="card-text whiteColor center ">
-                                                    <%= data.songs[i].artist.name %>
-                                                </p>
 
-                                                <div style="display:inline-flex; margin-left:10% ">
-                                                    <button onclick="fetchSong( '<%= data.songs[i]._id %>') " class="btn btn-primary "><span  class="material-icons verticalSpanIcon ">
+                                <div class="col-sm-3 ">
+                                    <div class="carousel-cell" style="height: 220px;">
+                                        <div class="card-body cardView">
+                                            <p class="card-title whiteColor center fs-5" style="color:rgb(255, 217, 0)">
+                                                <%= data.songs[i].name %>
+                                            </p>
+                                            <p class="card-text whiteColor center ">
+                                                <%= data.songs[i].artist.name %>
+                                            </p>
+
+                                            <div style="display:inline-flex; margin-left:10% ">
+                                                <button onclick="fetchSong( '<%= data.songs[i]._id %>') " class="btn btn-primary "><span  class="material-icons verticalSpanIcon ">
                         <div id = 'playStatus' >play_arrow</div></span>
                    </button> &nbsp;&nbsp;&nbsp;
-                                                    <div class="dropdown ">
-                                                        <button class="btn btn-primary whiteColor " type="button " data-toggle='dropdown'>
+                                                <div class="dropdown ">
+                                                    <button class="btn btn-primary whiteColor " type="button " data-toggle='dropdown'>
                             <span class=" material-icons verticalSpanIcon ">
                                 more_horiz
                                 </span></button>
-                                                        <ul class="dropdown-menu center ">
-                                                            <li class="dropdown-submenu ">
-                                                                <a class="test noUnderline " tabindex="-1 " href="#">Add to playlist <span class="caret "></span></a>
-                                                                <ul class="dropdown-menu center ">
+                                                    <ul class="dropdown-menu center ">
+                                                        <li class="dropdown-submenu ">
+                                                            <a class="test noUnderline " tabindex="-1 " href="#">Add to playlist <span class="caret "></span></a>
+                                                            <ul class="dropdown-menu center ">
 
-                                                                    <% for( var j = 0; j< data.playlists.length; j++ )  { %>
+                                                                <% for( var j = 0; j< data.playlists.length; j++ )  { %>
 
-                                                                        <li>
-                                                                            <button style="background:none;border:none; color:rgb(34, 91, 165); " onclick="addSongIntoPlaylist( '<%= data.playlists[j]._id %>', '<%= data.songs[i]._id %>') ">
+                                                                    <li>
+                                                                        <button style="background:none;border:none; color:rgb(34, 91, 165); " onclick="addSongIntoPlaylist( '<%= data.playlists[j]._id %>', '<%= data.songs[i]._id %>') ">
                                                 <%= data.playlists[j].name %>
                                             </button>
-                                                                        </li>
+                                                                    </li>
 
-                                                                        <% } %>
-                                                                </ul>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
+                                                                    <% } %>
+                                                            </ul>
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                <div class="whiteColor center ">
-                                                    <%= data.songs[i].plays %> plays</div>
                                             </div>
+                                            <div class="whiteColor center ">
+                                                <%= data.songs[i].plays %> plays</div>
                                         </div>
                                     </div>
-                                    <% } %>
-                                        <% } %>
+                                </div>
+
+                                <% } %>
                     </div>
                 </div>
             </div>
@@ -192,6 +192,10 @@
 
         }
     </script>
+
+
+
+
 
 
     <%- include('./partial/footer.ejs'); %>

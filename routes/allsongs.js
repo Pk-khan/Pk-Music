@@ -27,14 +27,24 @@ router.get('/', auth, async(request, response) => {
 // Get all songs having the 'songName' word  present
 router.get('/:songName', auth, async(request, response) => {
 
-    var allSongs = await Song.find({
-
-        name: {
-            $regex: request.params.songName,
-            $options: 'i'
-        }
-
-    }).populate("artist");
+    var allSongs = await Song.find()
+        .or([{
+            name: {
+                $regex: request.params.songName,
+                $options: 'i'
+            }
+        }, {
+            language: {
+                $regex: request.params.songName,
+                $options: 'i'
+            }
+        }, {
+            genre: {
+                $regex: request.params.songName,
+                $options: 'i'
+            }
+        }, ])
+        .populate("artist");
 
 
     var user = await getCurrentUser(request.cookies);

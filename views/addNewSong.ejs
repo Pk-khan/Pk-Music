@@ -29,6 +29,10 @@
                         <label for="vehicle1" class="whiteColor"> Same as Song Name</label><br>
                         <input type="text" class="form-control font-weight-bold" id="album" aria-describedby="emailHelp" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label whiteColor"> <span class="material-icons verticalSpanIcon">language</span> Language </label> &nbsp;&nbsp;&nbsp;
+                        <input type="text" class="form-control font-weight-bold" id="language" aria-describedby="emailHelp">
+                    </div>
 
                     <div class="whiteColor"> <span class="material-icons verticalSpanIcon">
                         audiotrack
@@ -71,7 +75,7 @@
 
         });
 
-            const toBase64 = file => new Promise((resolve, reject) => {
+        const toBase64 = file => new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onload = () => resolve(reader.result);
@@ -93,12 +97,14 @@
             var name = document.getElementById("name").value.trim();
             var genre = document.getElementById("genre").value.trim();
             var album = document.getElementById("album").value.trim();
+            var language = document.getElementById("language").value.trim();
 
             var data = {
                 name,
                 genre,
                 album,
-                'url': formData
+                'url': formData,
+                language
             }
 
             options = {
@@ -129,6 +135,8 @@
 
         });
     </script>
+
+
 
 
     <%- include('./partial/footer.ejs'); %>
