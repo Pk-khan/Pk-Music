@@ -1,17 +1,18 @@
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express = require('express');
-const register = require('../routes/register');
-const login = require('../routes/login');
-const song = require('../routes/song');
-const home = require('../routes/home');
-const playlist = require('../routes/playlist');
-const logout = require('../routes/logout');
+
 const album = require('../routes/album');
-const me = require('../routes/me');
-const history = require('../routes/history');
-const artist = require('../routes/Artist');
 const allsongs = require('../routes/allsongs');
+const artist = require('../routes/artist');
+const history = require('../routes/history');
+const home = require('../routes/home');
+const login = require('../routes/login');
+const logout = require('../routes/logout');
+const me = require('../routes/me');
+const playlist = require('../routes/playlist');
+const register = require('../routes/register');
+const song = require('../routes/song');
 
 const checkUser = require('../middleware/auth').checkUser
 
