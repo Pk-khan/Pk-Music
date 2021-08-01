@@ -1,17 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Song = require('../model/Song');
-const Playlist = require('../model/Playlist');
+const Song = require('../Model/Song');
+const Playlist = require('../Model/Playlist');
 const getCurrentUser = require('../middleware/auth').getCurrentUser;
 const auth = require('../middleware/auth').auth;
 
 router.get('/', auth, async(request, response) => {
 
     var songs = await Song.find().populate("artist");
-
-    // recentSongs.sort(function(a, b) {
-    //     return b.time - a.time;
-    // });
 
     var user = await getCurrentUser(request.cookies);
 

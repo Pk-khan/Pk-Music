@@ -1,7 +1,7 @@
 const express = require('express');
 const validate = require('../inputValidate/validateNewUser');
 const router = express.Router();
-const User = require('../model/User');
+const User = require('../Model/User');
 const bcrypt = require('bcrypt');
 
 router.get('/', async(request, response) => {

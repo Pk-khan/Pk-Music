@@ -4,7 +4,6 @@ const getCurrentUser = require('../middleware/auth').getCurrentUser;
 
 router.get('/', async function(request, response) {
 
-
     const user = await getCurrentUser(request.cookies);
 
     if (!user)

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Song = require('../model/Song');
-const Playlist = require('../model/Playlist');
+const Song = require('../Model/Song');
+const Playlist = require('../Model/Playlist');
 const getCurrentUser = require('../middleware/auth').getCurrentUser;
 const auth = require('../middleware/auth').auth;
 

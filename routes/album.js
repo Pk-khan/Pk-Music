@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Album = require('../model/Album');
-const Playlist = require('../model/Playlist');
+const Album = require('../Model/Album');
+const Playlist = require('../Model/Playlist');
 const auth = require('../middleware/auth').auth;
 const getCurrentUser = require('../middleware/auth').getCurrentUser;
 const { response } = require('express');

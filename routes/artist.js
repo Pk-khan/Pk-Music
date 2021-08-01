@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../model/User');
-const Album = require('../model/Album');
+const User = require('../Model/User');
+const Album = require('../Model/Album');
 const auth = require('../middleware/auth').auth;
-const getCurrentUser = require('../middleware/auth').getCurrentUser;
 const { response, request } = require('express');
 
 // Get Artist.ejs
@@ -35,12 +34,6 @@ router.get('/:id', auth, async(request, response) => {
     response.render('../views/album.ejs', { data });
 
 });
-
-
-
-
-
-
 
 
 

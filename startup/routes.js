@@ -7,13 +7,13 @@ const song = require('../routes/song');
 const home = require('../routes/home');
 const playlist = require('../routes/playlist');
 const logout = require('../routes/logout');
-const checkUser = require('../middleware/auth').checkUser
 const album = require('../routes/album');
 const me = require('../routes/me');
 const history = require('../routes/history');
 const artist = require('../routes/Artist');
 const allsongs = require('../routes/allsongs');
 
+const checkUser = require('../middleware/auth').checkUser
 
 module.exports = function(app) {
 
@@ -42,6 +42,6 @@ module.exports = function(app) {
     app.use('/me', me);
     app.use('/history', history);
     app.use('/artist', artist);
-    app.use('/allsongs',allsongs);
+    app.use('/allsongs', allsongs);
 
 }

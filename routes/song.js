@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Song = require('../model/Song');
-const User = require('../model/User');
-const Album = require('../model/Album');
-const jwt = require('jsonwebtoken');
-const auth = require('../middleware/auth').auth;
+const Song = require('../Model/Song');
+const User = require('../Model/User');
+const Album = require('../Model/Album');
 const SongMediaFile = require('../Model/SongMediaFile');
 const History = require('../Model/History');
+const auth = require('../middleware/auth').auth;
 const { getCurrentUser } = require('../middleware/auth');
-
+const jwt = require('jsonwebtoken');
 
 // To get upload page for Artists
 router.get('/upload', auth, async(request, response) => {
