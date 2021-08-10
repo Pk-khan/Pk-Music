@@ -3,7 +3,6 @@ const router = express.Router();
 const Song = require('../Model/Song');
 const User = require('../Model/User');
 const Album = require('../Model/Album');
-const SongMediaFile = require('../Model/SongMediaFile');
 const History = require('../Model/History');
 const auth = require('../middleware/auth').auth;
 const { getCurrentUser } = require('../middleware/auth');
@@ -57,15 +56,8 @@ router.get('/:id', auth, async(request, response) => {
 
     await History.updateOne({ user: user._id }, { $push: { songs: song._id } });
 
-    song = await SongMediaFile.findById(song.url);
-
     response.send(song);
 });
-
-
-
-
-
 
 
 
@@ -74,15 +66,16 @@ router.get('/:id', auth, async(request, response) => {
 router.post('/upload', auth, async(request, response) => {
 
     const name = request.body.name;
+    const songUrl = request.body.url;
 
-    let url;
+    var url;
     if (request.body.url)
         url = await request.body.url;
     else {
         return response.status(404).send("Something went wrong");
     }
 
-    let genre;
+    var genre;
     if (request.body.genre)
         genre = request.body.genre;
 
@@ -94,54 +87,59 @@ router.post('/upload', auth, async(request, response) => {
         language = "None";
     }
 
-    var user;
+    var artist;
 
     try {
+
         const token = request.cookies.token;
         const decode = jwt.verify(token, process.env.jwtKey);
-        user = await User.findById(decode);
-        if (!user) {
-            return response.status(401).send("Artist not found");
 
+        artist = await User.findById(decode);
+
+        if (!artist || !artist.isArtist) {
+            return response.status(401).send("Artist not found");
         }
-        user = user._id;
+
+        artist = artist._id;
+
     } catch (ex) {
+
         console.log(ex);
         return response.status(404).send(ex);
 
     }
 
-    let album = request.body.album;
+    var albumName = request.body.album;
 
-    let songMediaFile = new SongMediaFile({ songFile: url });
-    let songMediaFileId = await songMediaFile.save();
-
-    let song = {
+    var song = {
         name,
-        'url': songMediaFileId,
+        'url': songUrl,
         genre,
-        'artist': user,
-        album,
+        artist,
+        'album': albumName,
         language
     };
 
     song = new Song(song);
     await song.save();
 
-    // To add this song in Album
+    // To add this song in Album if exist
     album = await Album.findOne({
-        name: request.body.album,
-        artist: user,
+        name: albumName,
+        artist: artist,
     });
 
     if (!album) {
+
         album = {
-            'name': request.body.album,
-            'artist': user,
+            'name': albumName,
+            'artist': artist,
         };
         album = new Album(album)
         await album.save();
+
     }
+
     await Album.updateOne({ '_id': album._id }, { $push: { songs: song._id } });
 
     response.send({

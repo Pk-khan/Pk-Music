@@ -20,7 +20,7 @@
                              });
                         %>
 
-                            <% for( var i = 0; i< data.songs.length && i < 10; i++ )  { %>
+                            <% for( var i = 0; i < data.songs.length && i < 10; i++ )  { %>
 
                                 <div class="col-sm-3 ">
                                     <div class="carousel-cell" style="height: 220px;">
@@ -103,7 +103,7 @@
                                             </p>
 
                                             <div style="display:inline-flex; margin-left:10% ">
-                                                <button onclick="fetchSong( '<%= data.songs[i]._id %>') " class="btn btn-primary "><span  class="material-icons verticalSpanIcon ">
+                                                <button onclick="fetchSong( '<%= data.songs[i]._id %>')" class="btn btn-primary "><span  class="material-icons verticalSpanIcon ">
                         <div id = 'playStatus' >play_arrow</div></span>
                    </button> &nbsp;&nbsp;&nbsp;
                                                 <div class="dropdown ">

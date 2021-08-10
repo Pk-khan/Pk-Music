@@ -21,11 +21,12 @@
             method: 'GET',
         }
         var res = await fetch(`/song/${id}`, options);
-        res = await res.json();
+        var song = await res.json();
 
-        audio.src = res.songFile;
+        audio.src = song.url;
         audio.load();
         audio.play();
+
     }
 </script>
 
